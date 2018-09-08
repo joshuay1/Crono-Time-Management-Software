@@ -1,24 +1,24 @@
 package domain;
 
 public class Time {
-	private String isbn;
+	private int id;
 	private String startTime; 
 	private String finishTime;
 	
 	private String date;
 	
-	public Time(String isbn, String string, String string2, String date) {
+	public Time(int id, String string, String string2, String date) {
 		this.startTime = string;
 		this.finishTime = string2;
 		this.date = date;
-		this.isbn = isbn;
+		this.id = id;
 	}
-	public String getIsbn() {
-        return isbn;
+	public int getID() {
+        return id;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setID(int id) {
+        this.id = id;
     }
 	
 	public String getStartTime() {

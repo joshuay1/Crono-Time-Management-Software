@@ -1,24 +1,21 @@
 package domain;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TimeSheet {
-	private List<Time> history;
-	public TimeSheet(List<Time> history) {
-		this.history = history;
-	}
-	public TimeSheet() {
-	}
-
-	public List<Time> getHistory(){
-		return history;
-	}
-	
-	public void setHistory(List<Time> history) {
-		this.history =history;
-	}
-	public void addHistory(Time time) {
-		history.add(time);
+	public static List<List<Time>> timeSheet(List<Employee> employees) throws SQLException{
+		ArrayList<List<Time>> list = new ArrayList();
+		List<Time> time = new ArrayList<Time>();
+		for(Employee e: employees) {
+			time = e.getTimeSheet();
+			list.add(time);
+		}
+		
+		return list;
+		
+		
 	}
 	
 	

@@ -26,6 +26,25 @@ public class DBConnection {
 
 		return preparedStatement;
 	}
+	public static PreparedStatement prepare(String stm,int id) throws SQLException {
+		stm = stringSplit(stm,id);
+		 
+		PreparedStatement preparedStatement = null;
+		try {	
+	
+	       	 Connection dbConnection = getDBConnection();
+				
+			preparedStatement = dbConnection.prepareStatement(stm);
+			
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		
+		}
+
+		return preparedStatement;
+	}
 	private static Connection getDBConnection() {
 
 
@@ -45,6 +64,15 @@ public class DBConnection {
 		System.out.println("Connection problem");
 		return null;
 
+	}
+	
+	
+	
+	private static String stringSplit(String stm, int id) {
+		String str = stm.replaceAll("!!", ""+id);
+		System.out.println(id);
+		//System.exit(0);
+		return str;
 	}
 
 }

@@ -43,7 +43,6 @@ public class TimeFinder {
 	
 	        	 ResultSet rs = stmt.executeQuery();
 		         while (rs.next()) {
-		        	 System.out.println(rs.getInt(1));
 			         int id =  rs.getInt(1);
 			         String startTime = rs.getString(2);
 			         String finishTime = rs.getString(3);

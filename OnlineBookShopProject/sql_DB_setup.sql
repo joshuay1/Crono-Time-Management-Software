@@ -42,3 +42,15 @@ INSERT INTO APP.times VALUES (002, '09:24', '17:31','12/11/2011');
 INSERT INTO APP.times VALUES (003, '09:25', '17:32','13/11/2011');
 INSERT INTO APP.times VALUES (004, '09:26', '17:33','14/11/2011');
 INSERT INTO APP.times VALUES (005, '09:27', '17:34','15/11/2011');
+
+
+DROP TABLE APP.employees;
+CREATE TABLE APP.employees(
+   id INT,
+   firstName VARCHAR(50),
+   lastNAme VARCHAR(50),
+   PRIMARY KEY(id));
+ 
+INSERT INTO APP.employees VALUES (001, 'Callum', 'Vidler');
+INSERT INTO APP.employees VALUES (002, 'Joshua', 'Yang');
+

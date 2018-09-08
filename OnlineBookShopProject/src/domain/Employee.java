@@ -1,36 +1,42 @@
 package domain;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import datasource.EmployeeMapper;
 import datasource.TimeFinder;
 import datasource.TimeGateway;
+import datasource.TimeMapper;
 
 public class Employee extends User {
-	
+	private static int id;
 	private TimeSheet timeSheet;
-	public Employee(String email, String name, String address) {
-		super(email, name, address);
+	public Employee(int id, String firstName, String lastName) {
+		super( firstName, lastName);
 		timeSheet = new TimeSheet();
+		this.id = id;
+		
 		
 	}
+	public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
+    }
 	
 	
 	//add mapper from database to history
 	
-	public static List<Time> getTimeSheet() {
-		TimeFinder finder = new TimeFinder();
-        List<Time> result = new ArrayList<Time>();
-        List<TimeGateway> timeRecords = finder.findAllTimes();
-
-        for (TimeGateway t : timeRecords) {
-            Time time = new Time(String.valueOf(t.getId()), t.getStartTime(), t.getFinishTime(), t.getDate());
-            result.add(time);
-
-        }
-
-        return result;
+	public List<Time> getTimeSheet() throws SQLException {
+        List<Time> times = new ArrayList<Time>();
+		times = TimeMapper.findMyTime(id);
+        return times;
 	}
+	
+	
 	
 	
 
