@@ -16,5 +16,13 @@ public class Admin {
         return employees;
 	}
 	
+	public static TimeSheet getAllTimes(List<Employee> e) throws SQLException {
+		TimeSheet timeSheet = new TimeSheet();
+		timeSheet.setTimeSheet(e);
+		return timeSheet;
+		
+		
+	}
+	
 
 }

@@ -20,7 +20,7 @@ import java.util.List;
  * Servlet implementation class TimeSheet
  */
 @WebServlet("/TimeSheet")
-public class ViewTimeSheet extends HttpServlet {
+public class ViewAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -29,7 +29,7 @@ public class ViewTimeSheet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-		List<List<Time>> times = new ArrayList();
+		TimeSheet timeSheet = null;
 		List<Employee> employees = new ArrayList<Employee>();
 		
 		
@@ -41,7 +41,7 @@ public class ViewTimeSheet extends HttpServlet {
 			e1.printStackTrace();
 		}
         try {
-			times = TimeSheet.timeSheet(employees);
+			timeSheet = Admin.getAllTimes(employees);
 		} catch (SQLException e2) {
 
 			e2.printStackTrace();
@@ -63,14 +63,12 @@ public class ViewTimeSheet extends HttpServlet {
 
 		out.println("<table class='table table-bordered table-striped'>");
 		out.print("<tr><th>ID</th><th>StartTime</th><th>FinishTime</th><th>Date</th>");
-		for (List<Time> time : times) {
-			for(Time t : time) {
-				out.println("<form action=\"cart\" method=\"post\">");
-				out.print("<tr><td>" + t.getID() + "</td><td>" + t.getStartTime() + "</td><td>" + t.getFinishTime()
-						+ "</td><td>" + t.getDate() + "</td>");
-				out.println("</form>");
-			}
+		for(int i= 0 ; i<timeSheet.getIDs().size(); i++) {
+				out.print("<tr><td>" + timeSheet.getIDs(i) + "</td><td>" + timeSheet.getFirstNames(i) +  "</td><td>" + timeSheet.getLastNames(i)+ "</td>"
+						+ "<td>" + timeSheet.getStartTimes(i) + "</td><td>" + timeSheet.getFinishTimes(i)
+						+ "</td><td>" + timeSheet.getDates(i) + "</td>");
 		}
+				out.println("</form>");
 		out.println("</table>");
 		out.println("</div>");
 
@@ -81,18 +79,21 @@ public class ViewTimeSheet extends HttpServlet {
 		out.println("<table class='table table-bordered table-striped'>");
 		out.print("<tr><th>ID</th><th>FirstName</th><th>LastName</th>");
 		for (Employee e : employees) {
-			out.println("<form action=\"cart\" method=\"post\">");
 			out.print("<tr><td>" + e.getID() + "</td><td>" + e.getFirstName() + "</td><td>" + e.getLastName()
 					+ "</td>");
 			out.println("</form>");
 		}
 		out.println("</table>");
 		out.println("</div>");
+		out.println("<a href = 'createTime.html'>CreateTime</a>");
 		
 		out.println("</body>");
 		out.println("</html>");
 
 		out.close();
 	}
+	
+	
+	
 
 }

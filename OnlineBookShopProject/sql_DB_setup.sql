@@ -21,11 +21,7 @@ CREATE TABLE APP.customer(
    address VARCHAR(200),
    PRIMARY KEY(id));
  
-INSERT INTO APP.customer VALUES (001, 'Jones', 'jones@gmail.com','Office 9, IAS, Princeton, USA');
-INSERT INTO APP.customer VALUES (002, 'Dana', 'dana@gmail.com','Office 6, IAS, Princeton, USA');
-INSERT INTO APP.customer VALUES (003, 'Alex', 'alex@gmail.com', 'Office 9, IAS, Princeton, USA');
-INSERT INTO APP.customer VALUES (004, 'Adam', 'adam@gmail.com', 'SOME WHERE');
-INSERT INTO APP.customer VALUES (005, 'David', 'david@gmail.com', 'SOME WHERE');
+
 
 
 
@@ -51,6 +47,11 @@ CREATE TABLE APP.employees(
    lastNAme VARCHAR(50),
    PRIMARY KEY(id));
  
-INSERT INTO APP.employees VALUES (001, 'Callum', 'Vidler');
-INSERT INTO APP.employees VALUES (002, 'Joshua', 'Yang');
+INSERT INTO APP.employees VALUES (006, 'Callum', 'Vidler');
+INSERT INTO APP.employees VALUES (000, 'Joshua', 'Yang');
+INSERT INTO APP.employees VALUES (001, 'Jones', 'Ho');
+INSERT INTO APP.employees VALUES (002, 'Dana', 'Bill');
+INSERT INTO APP.employees VALUES (003, 'Alex', 'Blob');
+INSERT INTO APP.employees VALUES (004, 'Adam', 'Go');
+INSERT INTO APP.employees VALUES (005, 'David', 'Run');
 
