@@ -1,5 +1,6 @@
 package datasource;
 
+import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import java.util.List;
 
 import domain.Employee;
 
-public class EmployeeMapper {
+public class UserMapper {
 	private final static String findStatementString =
 	         "SELECT * " +
 	         "  from APP.employees "+
@@ -52,6 +53,21 @@ public class EmployeeMapper {
 	
 	public static void update(Employee e, String email) {
 		
+	}
+	
+	public static int checkLogin(String username, String password) throws SQLException  {
+		try {
+			PreparedStatement stmt = DBConnection.prepare("SELECT userID " +
+			         "  from APP.employees " +
+			         "  WHERE username ='"+username+"' AND password ='"+password+"'");
+			ResultSet rs = stmt.executeQuery();
+			rs.next();			
+			return rs.getInt(1);
+		}
+		catch(SQLException e){
+			return -1;
+			
+		}
 	}
 	
 	private static String stringSplit(String stm, String input, int place) {

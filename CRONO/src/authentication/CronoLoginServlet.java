@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datasource.DBConnection;
 import datasource.TimeGateway;
+import domain.User;
 
 /**
  * Servlet implementation class CronoLogin
@@ -22,9 +23,9 @@ import datasource.TimeGateway;
 public class CronoLoginServlet extends HttpServlet {
 	
 	
-	private static final String DB_CONNECTION = "jdbc:derby://localhost:1527/crono;create=true";
-	private static final String USER = "root";
-	private static final String PASSWORD = "root";
+	private static final String DB_CONNECTION = "jdbc:derby://localhost:1527/CRONO;create=true";
+	private static final String USER = "user";
+	private static final String PASSWORD = "123";
 	private static final long serialVersionUID = 1L;
 	
 
@@ -54,42 +55,23 @@ public class CronoLoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("text/html");
 		System.out.println("Hola from Post method in LoginServlet");
 		String user = request.getParameter("userName");
 		String pass = request.getParameter("passWord");
-
-			
-		
+		int id = -1;
 		try {
-			PreparedStatement stmt = DBConnection.prepare("SELECT id " +
-			         "  from APP.employees " +
-			         "  WHERE username ='"+user+"' AND password ='"+pass+"'");
-			ResultSet rs = stmt.executeQuery();
-			rs.next();			
-			int id = rs.getInt(1);
-			PrintWriter writer = response.getWriter();
-			writer.println("<h3> Hola from Post: Your user name is: "+user+  " , Your password is:    " +pass+ " Your id is:    " + id+"</h3>");
-
-	          } catch (SQLException e){
-	              e.printStackTrace();
-	              PrintWriter writer = response.getWriter();
-	              writer.println("<h3> WRONG WRONG WRONG </h3>");
-	          } 
-
-		/*
-		String correctUser = getServletConfig().getInitParameter("userNameI");
-		String correctPass = getServletConfig().getInitParameter("passWordI");
-		PrintWriter writer = response.getWriter();
-
-		if(user.equals(correctUser) && pass.equals(correctPass)) {
-			writer.println("<h3> Hello from Post: Your user name is: "+user+  " , Your password is:    " +pass+ "</h3>");
-			response.sendRedirect("success.jsp");
-		}else {
-			writer.println("<h3> Hello from Post: Your user name is: "+user+  " , Your password is:    " +pass+ "</h3>");
-			writer.println("<h3> Error </h3>");
-		}*/
+			id = User.getID(user, pass);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(id != -1) {
+			response.sendRedirect("home?ID=" +id);
+		}
+		else {
+			response.sendRedirect("invalidUser.html");
+		}
 
 	}
 

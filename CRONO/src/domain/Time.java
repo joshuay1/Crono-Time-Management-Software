@@ -1,24 +1,35 @@
 package domain;
 
 public class Time {
-	private int id;
+	private int userID;
+	private int timeID;
 	private String startTime; 
 	private String finishTime;
 	
+	
 	private String date;
 	
-	public Time(int id, String string, String string2, String date) {
+	public Time(int userID, int timeID, String string, String string2, String date) {
 		this.startTime = string;
 		this.finishTime = string2;
 		this.date = date;
-		this.id = id;
+		this.userID = userID;
+		this.timeID = timeID;
 	}
-	public int getID() {
-        return id;
+	public int getUserID() {
+        return userID;
     }
 
-    public void setID(int id) {
-        this.id = id;
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+    
+    public int getTimeID() {
+        return timeID;
+    }
+
+    public void setTimeID(int timeID) {
+        this.timeID = timeID;
     }
 	
 	public String getStartTime() {

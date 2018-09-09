@@ -1,5 +1,10 @@
 package domain;
 
+import java.sql.SQLException;
+
+import datasource.UnitOfWork;
+import datasource.UserMapper;
+
 public class User {
 
 
@@ -10,6 +15,8 @@ public class User {
     
     private String userName;
     private String password;
+    
+    protected UnitOfWork unitOfWork;
 
 
     public User( String firstName, String lastName, String email, String userName, String password) {
@@ -18,6 +25,8 @@ public class User {
         this.email = email;
         this.userName = userName;
         this.password = password;
+        unitOfWork = UnitOfWork.getCurrent();
+        
     }
 
     public String getEmail() {
@@ -59,6 +68,10 @@ public class User {
 
     public void updateLastName(String lastName) {
         this.lastName = lastName;
+    }
+    
+    public static int getID(String username,String password) throws SQLException {
+    	return UserMapper.checkLogin(username, password);
     }
 
 //    public String getAddress() {

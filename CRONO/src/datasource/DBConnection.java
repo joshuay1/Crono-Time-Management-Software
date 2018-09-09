@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class DBConnection {
 	
-	private static final String DB_CONNECTION = "jdbc:derby://localhost:1527/ebookshop;create=true";
+	private static final String DB_CONNECTION = "jdbc:derby://localhost:1527/crono;create=true";
 	private static final String DB_USER = "user";
 	private static final String DB_PASSWORD = "123";
 	

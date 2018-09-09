@@ -4,19 +4,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import datasource.EmployeeMapper;
+import datasource.UserMapper;
 
 public class Roster {
 	
+	static List<Employee> employees = new ArrayList<Employee>();
+	
 	public static List<Employee> getUsers() throws SQLException {
-        List<Employee> employees = new ArrayList<Employee>();
-        employees = EmployeeMapper.allEmployees();
+        employees = UserMapper.allEmployees();
         return employees;
 	}
 	
 	
 	public static Employee getEmployee(int id)throws SQLException {
-		Employee e = EmployeeMapper.getEmployee(id);
+		Employee e = UserMapper.getEmployee(id);
 		return e;
 	}
 	
