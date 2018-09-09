@@ -12,7 +12,7 @@ public class TimeMapper {
 	private final static String findStatementString =
 	         "SELECT * " +
 	         "  from APP.times "+
-	         "  WHERE id = !1!";
+	         "  WHERE ID = !1!";
 	
 	 private static final String findAllTimesStatement =
 	         "SELECT * from APP.times";

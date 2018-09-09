@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="OnlineBookShopProject">
+        
+    <wb-module deploy-name="CRONO">
+                
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="OnlineBookShopProject"/>
-        <property name="java-output-path" value="/OnlineBookShopProject/build/classes"/>
+                
+        <property name="java-output-path" value="/CRONO/build/classes"/>
+        <property name="context-root" value="CRONO"/>
+            
     </wb-module>
+    
 </project-modules>

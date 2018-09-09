@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.Admin;
 import domain.Employee;
+import domain.Roster;
 import domain.Time;
 import domain.TimeSheet;
 
@@ -36,7 +37,7 @@ public class ViewAdmin extends HttpServlet {
 		
      
         try {
-			employees = Admin.getUsers();
+			employees = Roster.getUsers();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -68,7 +69,6 @@ public class ViewAdmin extends HttpServlet {
 						+ "<td>" + timeSheet.getStartTimes(i) + "</td><td>" + timeSheet.getFinishTimes(i)
 						+ "</td><td>" + timeSheet.getDates(i) + "</td>");
 		}
-				out.println("</form>");
 		out.println("</table>");
 		out.println("</div>");
 
@@ -77,11 +77,10 @@ public class ViewAdmin extends HttpServlet {
 		out.print("<h1>View Users</h1>");
 
 		out.println("<table class='table table-bordered table-striped'>");
-		out.print("<tr><th>ID</th><th>FirstName</th><th>LastName</th>");
+		out.print("<tr><th>ID</th><th>FirstName</th><th>LastName</th><th>Email</th>");
 		for (Employee e : employees) {
 			out.print("<tr><td>" + e.getID() + "</td><td>" + e.getFirstName() + "</td><td>" + e.getLastName()
-					+ "</td>");
-			out.println("</form>");
+					+ "</td><td>" + e.getEmail() + "</td>");
 		}
 		out.println("</table>");
 		out.println("</div>");
