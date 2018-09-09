@@ -44,14 +44,16 @@ DROP TABLE APP.employees;
 CREATE TABLE APP.employees(
    id INT,
    firstName VARCHAR(50),
-   lastNAme VARCHAR(50),
+   lastName VARCHAR(50),
+   username VARCHAR(50),
+   password VARCHAR(50),
    PRIMARY KEY(id));
  
-INSERT INTO APP.employees VALUES (006, 'Callum', 'Vidler');
-INSERT INTO APP.employees VALUES (000, 'Joshua', 'Yang');
-INSERT INTO APP.employees VALUES (001, 'Jones', 'Ho');
-INSERT INTO APP.employees VALUES (002, 'Dana', 'Bill');
-INSERT INTO APP.employees VALUES (003, 'Alex', 'Blob');
-INSERT INTO APP.employees VALUES (004, 'Adam', 'Go');
-INSERT INTO APP.employees VALUES (005, 'David', 'Run');
+INSERT INTO APP.employees VALUES (006, 'Callum', 'Vidler','cal','123');
+INSERT INTO APP.employees VALUES (000, 'Joshua', 'Yang','jos','123');
+INSERT INTO APP.employees VALUES (001, 'Jones', 'Ho','jon','123');
+INSERT INTO APP.employees VALUES (002, 'Dana', 'Bill','dan','123');
+INSERT INTO APP.employees VALUES (003, 'Alex', 'Blob','ale','123');
+INSERT INTO APP.employees VALUES (004, 'Adam', 'Go','ada','123');
+INSERT INTO APP.employees VALUES (005, 'David', 'Run','ale','123');
 
