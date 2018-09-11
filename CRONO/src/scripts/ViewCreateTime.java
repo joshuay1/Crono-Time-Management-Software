@@ -20,7 +20,6 @@ public class ViewCreateTime extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	List<Employee> employees = new ArrayList<Employee>();
 //    	response.setContentType("text.html; charset=UFT-8");
     	int ID = Integer.parseInt(request.getParameter("ID"));
         String startTime = request.getParameter("startTime1");

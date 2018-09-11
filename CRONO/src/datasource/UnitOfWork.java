@@ -5,14 +5,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.tools.javac.util.Assert;
+import static org.junit.Assert.*;
 
+import domain.Employee;
 import domain.Time;
 
 public class UnitOfWork {
 	private List<Time> newTimeObjects = new ArrayList<Time>();
 	private List<Time> dirtyTimeObjects = new ArrayList<Time>();
 	private List<Time> deletedTimeObjects = new ArrayList<Time>();
+	private List<Employee> dirtyUserObjects = new ArrayList<Employee>();
+	
+	private String hello = "";
 	
 	private static ThreadLocal current = new ThreadLocal();
 	
@@ -27,21 +31,27 @@ public class UnitOfWork {
 	}
 	
 	public void registerNewTime(Time obj) {
-		Assert.checkNonNull(obj, "Time is null");
-		Assert.check(!dirtyTimeObjects.contains(obj), "Time is dirty");
-		Assert.check(!deletedTimeObjects.contains(obj), "Time is deleted");
-		Assert.check(!newTimeObjects.contains(obj), "Time is new");
+//		if(obj != null) {
+//			System.out.println("hello");
+//			System.exit(0);
+//		}
+//		assertNotNull(obj);
+//		assertTrue(!dirtyTimeObjects.contains(obj));
+//		assertTrue(!deletedTimeObjects.contains(obj));
+//		assertTrue(!newTimeObjects.contains(obj));
+		System.out.println("insert");
+		hello = "insert";
 		newTimeObjects.add(obj);
 	}
 	
-	public void registerDirty(Time obj) {
-		Assert.checkNonNull(obj.getUserID(), "id is null");
-		Assert.check(!deletedTimeObjects.contains(obj), "Time is deleted");
-		newTimeObjects.add(obj);
+	public void registerDirtyTime(Time obj) {
+//		assertNotNull(obj.getUserID());
+//		assertTrue(!deletedTimeObjects.contains(obj));
+		dirtyTimeObjects.add(obj);
 	}
 	
 	public void registerDeleted(Time obj) {
-		Assert.checkNonNull(obj.getUserID(), "id is null");
+//		assertNotNull(obj.getUserID());
 		if (newTimeObjects.remove(obj)) return;
 			dirtyTimeObjects.remove(obj);
 		if (!deletedTimeObjects.contains(obj)) {
@@ -50,12 +60,20 @@ public class UnitOfWork {
 	}
 	
 	
+	public void registerDirtyUser(Employee obj) {
+		dirtyUserObjects.add(obj);
+		
+		
+	}
+	
+	
 	public void registerClean(Time obj) {
-		Assert.checkNonNull(obj.getUserID(), "id is null");
+		assertNotNull(obj.getUserID());
 	}
 	
 	
 	public void commit() throws SQLException {
+		
 		for (Time obj : newTimeObjects) {
 			TimeMapper.insert(obj.getUserID(),obj.getTimeID(), obj.getStartTime(),obj.getFinishTime(),obj.getDate());
 		}
@@ -64,6 +82,9 @@ public class UnitOfWork {
 		}
 		for (Time obj : deletedTimeObjects) {
 			TimeMapper.delete(obj.getTimeID());
+		}
+		for(Employee obj: dirtyUserObjects) {
+			UserMapper.update(obj.getID(), obj.getFirstName(), obj.getLastName(), obj.getEmail(),obj.getUserName(),obj.getPassword());
 		}
 	}
 }

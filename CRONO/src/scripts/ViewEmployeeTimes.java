@@ -70,6 +70,12 @@ public class ViewEmployeeTimes extends HttpServlet {
 
 		out.print("<h1>Welcome " + e.getFirstName() + "</h1>");
 		out.print("<h2>To your TimeSheet</h2>");
+		try {
+			out.print("<p>You have "+ e.getNumberTimes() + "<p>");
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 
     	
@@ -77,10 +83,15 @@ public class ViewEmployeeTimes extends HttpServlet {
     	
  
 		out.println("<table class='table table-bordered table-striped'>");
-		out.print("<tr><th>StartTime</th><th>FinishTime</th><th>Date</th></tr>");
+		out.print("<tr><th>StartTime</th><th>FinishTime</th><th>Date</th><th>Payment for work (will convert for feature 2)</th></tr>");
     	for(int i= 0 ; i<times.size(); i++) {
-    		out.println("<tr><td>" + times.get(i).getStartTime() + "</td><td>" + times.get(i).getFinishTime()
-					+ "</td><td>" + times.get(i).getDate() + "</td></tr>");
+    		try {
+				out.println("<tr><td>" + times.get(i).getStartTime() + "</td><td>" + times.get(i).getFinishTime()
+						+ "</td><td>" + times.get(i).getDate() + "</td><td>"+times.get(i).getPay()+"</tr>");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     	}
     
 		out.println("</table>");

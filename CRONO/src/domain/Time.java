@@ -1,5 +1,10 @@
 package domain;
 
+import java.sql.SQLException;
+
+import datasource.TimeMapper;
+import datasource.UnitOfWork;
+
 public class Time {
 	private int userID;
 	private int timeID;
@@ -9,10 +14,11 @@ public class Time {
 	
 	private String date;
 	
-	public Time(int userID, int timeID, String string, String string2, String date) {
-		this.startTime = string;
-		this.finishTime = string2;
+	public Time(int userID, int timeID, String startTime, String finishTime, String date) {
+		this.startTime = startTime;
+		this.finishTime = finishTime;
 		this.date = date;
+		//foreign key mappping!
 		this.userID = userID;
 		this.timeID = timeID;
 	}
@@ -54,6 +60,18 @@ public class Time {
         this.date = date;
     }
     
+    
+    public static Pay createPay(float pay, String startTime, String finishTime) {
+    	Pay p = new Pay(pay, startTime, finishTime);
+    	return p;
+    }
+    
+    public String getPay() throws SQLException {
+    	Pay pay = TimeMapper.createPay(timeID);
+    	
+    	
+    	return pay.getString();
+    }
     
     
     

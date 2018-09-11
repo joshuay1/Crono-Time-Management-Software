@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.Employee;
+import domain.Roster;
 
 public class UserMapper {
 	private final static String findStatementString =
@@ -18,7 +19,7 @@ public class UserMapper {
 	 private static final String findAllTimesStatement =
 	         "SELECT * from APP.employees";
 	
-	public static List<Employee> allEmployees() throws SQLException {
+	public static void getAllEmployees() throws SQLException {
 			PreparedStatement sqlPrepared = DBConnection.prepare(findAllTimesStatement);
 			ResultSet rs = sqlPrepared.executeQuery();
 			List<Employee> result = new ArrayList<Employee>();
@@ -27,12 +28,10 @@ public class UserMapper {
 				String firstName = rs.getString(2);
 				String lastName = rs.getString(3);
 				String email = rs.getString(4);
-				String userName = rs.getString(5);
+				String username = rs.getString(5);
 				String password = rs.getString(6);
-				Employee employee =new Employee(id, firstName, lastName, email,userName,password);
-				result.add(employee);
+				Roster.addEmployee(id, firstName, lastName, email, username, password);
 			}
-			return result;
 
 	}
 	
@@ -51,8 +50,11 @@ public class UserMapper {
 			return employee;
 	}
 	
-	public static void update(Employee e, String email) {
-		
+	public static void update(int userID, String firstName, String lastName, String email, String username, String password) throws SQLException {
+		String sql = "UPDATE APP.employees SET firstName = '"+ firstName+ "', lastName = '"+ lastName + "' , email = '" + email + "', username = '" + username + "' , password = '" + password + "' WHERE userID = "+ userID + "";
+		PreparedStatement sqlPrepared = DBConnection.prepare(sql);
+		int rs = sqlPrepared.executeUpdate();
+	
 	}
 	
 	public static int checkLogin(String username, String password) throws SQLException  {
@@ -74,5 +76,8 @@ public class UserMapper {
 		String str = stm.replaceAll("!"+place+"!", input);
 		return str;
 	}
+	
 
 }
+
+

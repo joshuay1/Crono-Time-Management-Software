@@ -1,5 +1,10 @@
 package datasource;
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBConnection {
 	
@@ -29,6 +34,9 @@ public class DBConnection {
 
 	
 
+	/**
+	 * @return
+	 */
 	private static Connection getDBConnection() {
 
 
@@ -49,6 +57,25 @@ public class DBConnection {
 		return null;
 
 	}
+	
+//	public static PreparedStatement prepare(String stm, int returnGeneratedKeys) {
+//        PreparedStatement preparedStatement = null;
+//        try {
+//
+//            Connection dbConnection = getDBConnection();
+//
+//            preparedStatement = dbConnection.prepareStatement(stm, Statement.RETURN_GENERATED_KEYS);
+//
+//
+//        } catch (SQLException e) {
+//
+//            System.out.println(e.getMessage());
+//
+//
+//        }
+//
+//        return preparedStatement;
+//    }
 	
 	
 

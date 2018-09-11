@@ -16,7 +16,6 @@ public class User {
     private String userName;
     private String password;
     
-    protected UnitOfWork unitOfWork;
 
 
     public User( String firstName, String lastName, String email, String userName, String password) {
@@ -25,7 +24,6 @@ public class User {
         this.email = email;
         this.userName = userName;
         this.password = password;
-        unitOfWork = UnitOfWork.getCurrent();
         
     }
 
@@ -70,9 +68,9 @@ public class User {
         this.lastName = lastName;
     }
     
-    public static int getID(String username,String password) throws SQLException {
-    	return UserMapper.checkLogin(username, password);
-    }
+//    public static int getID(String username,String password) throws SQLException {
+//    	return UserMapper.checkLogin(username, password);
+//    }
 
 //    public String getAddress() {
 //        return address;

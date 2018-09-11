@@ -6,20 +6,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.Employee;
+import domain.Pay;
 import domain.Time;
 
+
+//use class inheritance pattern
 public class TimeMapper {
 	private final static String findStatementString =
 	         "SELECT * " +
 	         "  from APP.times "+
-	         "  WHERE ID = !1!";
+	         "  WHERE userID = !1!";
 	
 	 private static final String findAllTimesStatement =
 	         "SELECT * from APP.times";
 	 
 	 private static final String insertStatement =
 			 
-			 "INSERT INTO APP.times VALUES (!0!, !1!, !2!,!3!,!4!)";
+			 "INSERT INTO APP.times VALUES (!0!, !1!, '!2!','!3!','!4!')";
 	 
 	 private static final String updateStatement =
 			 
@@ -30,8 +34,6 @@ public class TimeMapper {
 			 "DELETE APP.times  WHERE timeID = !1!)";
 	
 	public static List<Time> findMyTime(int myID) throws SQLException {
-		UnitOfWork unitOfWork = UnitOfWork.getCurrent();
-		unitOfWork.commit();
 		String str = stringSplit(findStatementString, ""+myID, 1);
 		PreparedStatement sqlPrepared = DBConnection.prepare(str);
 		ResultSet rs = sqlPrepared.executeQuery();
@@ -42,8 +44,8 @@ public class TimeMapper {
 			String startTime = rs.getString(3);
 	        String finishTime = rs.getString(4);
 	        String date = rs.getString(5);
-	        Time time = new Time(userID,timeID, startTime, finishTime, date);
-			result.add(time);
+	        Time t = Employee.addTime(userID,timeID, startTime, finishTime, date);
+	        result.add(t);
 		}
 		return result;
 	}
@@ -74,7 +76,7 @@ public class TimeMapper {
 		str = stringSplit(str,date,4 );
 		
 		PreparedStatement sqlPrepared = DBConnection.prepare(str);
-		int rs = sqlPrepared.executeUpdate();
+		sqlPrepared.executeUpdate();
 		
 	}
 	
@@ -101,10 +103,55 @@ public class TimeMapper {
 		
 	}
 	
+	//user - time association mapping
+		public static int numberTimes(int userID) throws SQLException {
+			String sql = "SELECT COUNT(TimeID) "+ 
+					 " FROM APP.times INNER JOIN APP.employees ON APP.times.userID = APP.employees.userID " +
+					 " WHERE APP.employees.userID = "+userID+"";
+			PreparedStatement sqlPrepared = DBConnection.prepare(sql);
+			ResultSet rs = sqlPrepared.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+			
+			return count;
+			
+		}
+		
+		
+		
+		//embedded pattern!
+		public static Pay createPay(int timeID) throws SQLException {
+			String sql = "SELECT * "+
+						"FROM APP.times "+
+						"WHERE timeID = " + timeID;
+			PreparedStatement sqlPrepared = DBConnection.prepare(sql);
+			ResultSet rs = sqlPrepared.executeQuery();
+			rs.next();
+			String startTime = rs.getString(3);
+			String finishTime = rs.getString(4);
+			int userID = rs.getInt(1);
+			//embedded!
+			float pay = PayMapper.getPay(userID);
+			return Time.createPay(pay, startTime, finishTime);
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	private static String stringSplit(String stm, String input, int place) {
 		String str = stm.replaceAll("!"+place+"!", input);
 		return str;
 	}
+	
+	
+
 
 }

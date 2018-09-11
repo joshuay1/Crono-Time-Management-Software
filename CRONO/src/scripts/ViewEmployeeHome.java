@@ -18,6 +18,7 @@ import domain.Time;
 
 @WebServlet("/home")
 public class ViewEmployeeHome extends HttpServlet {
+	
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,12 +31,12 @@ public class ViewEmployeeHome extends HttpServlet {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-    	List<Time> times = null;
-		try {
-			times = e.getTimeSheet();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+//    	List<Time> times = null;
+//		try {
+//			times = e.getTimeSheet();
+//		} catch (SQLException e1) {
+//			e1.printStackTrace();
+//		}
 		
     	response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -62,6 +63,9 @@ public class ViewEmployeeHome extends HttpServlet {
 				"      </li>\n" + 
 				"      <li class=\"nav-item\">\n" + 
 				"        <a class=\"nav-link\" href=\'times?ID="+ID+"'>View Time</a>\n" + 
+				"      </li>\n" + 
+				"      <li class=\"nav-item\">\n" + 
+				"        <a class=\"nav-link\" href=\'editProfile.jsp?ID="+ID+"'>Edit Profile</a>\n" + 
 				"      </li>\n" + 
 				"    </ul>\n" + 
 				"  </div>\n" + 
