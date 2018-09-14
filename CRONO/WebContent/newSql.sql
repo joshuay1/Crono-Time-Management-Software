@@ -5,6 +5,7 @@ DROP TABLE APP.pay;
 DROP TABLE APP.times;
 DROP TABLE APP.employees;
 DROP TABLE APP.keys;
+CREATE SCHEMA APP;
 --
 CREATE TABLE APP.employees(
    userID INT,

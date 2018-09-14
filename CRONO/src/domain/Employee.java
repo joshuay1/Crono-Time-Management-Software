@@ -1,7 +1,5 @@
 package domain;
 
-import static org.junit.Assert.*;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

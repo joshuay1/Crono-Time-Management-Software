@@ -18,7 +18,7 @@
 <div class='container'>
 
     <table class='table table-bordered table-striped'>
-           <form method="post" action ="editProfile">
+		<form method="post" action ="editProfile">
 			Actual User ID: <input type="number" placeholder="00x" name = "ID">
 			Wanted First Name:<input type="text" placeholder ="John" name="firstName">
 			Wanted Last Name:<input type="text" placeholder ="Smith" name="lastName">
@@ -26,8 +26,8 @@
     		New username: <input type="text" placeholder ="FunkyMuffin12" name="username">
     		New Password: <input type="password" name = "password123!" placeholder = "password">
    			<input type="submit" value="Submit">
-			</form> 
-	<div>
+		</form> 
+
     </table>
 </div>
 
