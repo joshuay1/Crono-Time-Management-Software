@@ -14,19 +14,12 @@ public class Employee extends User {
 	private int id;
 	private List<Time> times = null;
 	public Employee(int id, String firstName, String lastName, String email, String userName, String password) {
-		super( firstName, lastName, email, userName, password);
-		this.id = id;
+		super( firstName, lastName, email, userName, password,id);
 		
 		
 		
 	}
-	public int getID() {
-        return id;
-    }
-
-    public void setID(int id) {
-        this.id = id;
-    }
+	
     
     
 	
