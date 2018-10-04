@@ -34,8 +34,9 @@ public class TimeMapper {
 			 "DELETE APP.times  WHERE timeID = !1!)";
 	
 	public static List<Time> findMyTime(int myID) throws SQLException {
-		String str = stringSplit(findStatementString, ""+myID, 1);
-		PreparedStatement sqlPrepared = DBConnection.prepare(str);
+		String sql = "SELECT * "+
+				"FROM APP.times WHERE userID = "+myID;
+		PreparedStatement sqlPrepared = DBConnection.prepare(sql);
 		ResultSet rs = sqlPrepared.executeQuery();
 		List<Time> result = new ArrayList();
 		while (rs.next()) {
@@ -44,7 +45,7 @@ public class TimeMapper {
 			String startTime = rs.getString(3);
 	        String finishTime = rs.getString(4);
 	        String date = rs.getString(5);
-	        Time t = Employee.addTime(userID,timeID, startTime, finishTime, date);
+	        Time t = new Time(userID,timeID, startTime, finishTime, date);
 	        result.add(t);
 		}
 		return result;

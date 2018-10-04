@@ -1,10 +1,12 @@
-package scripts;
+package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +34,8 @@ public class EditProfileServlet extends HttpServlet {
 	        String firstName = request.getParameter("firstName");
 	        String lastName = request.getParameter("lastname");
 	        
+	        System.out.println("ID = " + ID + "\nusername = "+username+"\nfirstname = " + firstName);
+	        
 	        try {
 				Roster.updateProfile(ID, firstName, lastName, email, username, password);
 			} catch (SQLException e) {
@@ -40,7 +44,20 @@ public class EditProfileServlet extends HttpServlet {
 			}
 			
 	        
-	        response.sendRedirect("home?ID=" +ID);
+	        response.sendRedirect("home?ID");
 	    }
+	 
+	 
+	 @Override
+	    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    	ServletContext servletContext = getServletContext();
+	    	String view = "/views/editProfile.jsp";
+	        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
+	        requestDispatcher.forward(request, response);
+			
+			
+	    }
+	 
+	 
 
 }
