@@ -50,6 +50,29 @@ public class UserMapper {
 			return employee;
 	}
 	
+	
+	
+	public static int getUserID(String userName) {
+		String sql = "Select * "
+				+ "From App.Employees "
+				+ "WHERE username = '"+userName+"'";
+		PreparedStatement sqlPrepared;
+		try {
+			sqlPrepared = DBConnection.prepare(sql);
+			ResultSet rs = sqlPrepared.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("Errror with SQL");
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+	
+	
+	
+	
 	public static void update(int userID, String firstName, String lastName, String email, String username, String password) throws SQLException {
 		String sql = "UPDATE APP.employees SET firstName = '"+ firstName+ "', lastName = '"+ lastName + "' , email = '" + email + "', username = '" + username + "' , password = '" + password + "' WHERE userID = "+ userID + "";
 		PreparedStatement sqlPrepared = DBConnection.prepare(sql);

@@ -13,11 +13,16 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="D:/2018 Software Engineering/SWEN90007 - Software Design and Architechture/swen90007-repo/CRONO/WebContent/WEB-INF/lib/derbyclient.jar">
+=======
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/postgresql-42.2.5.jar">
+>>>>>>> partC
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="D:/2018 Software Engineering/SWEN90007 - Software Design and Architechture/swen90007-repo/CRONO/WebContent/WEB-INF/lib/postgresql-42.2.5.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
@@ -28,5 +33,13 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+=======
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/derbyclient.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+>>>>>>> partC
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -16,15 +16,27 @@ public class User {
     private String userName;
     private String password;
     
+    private int id;
+    
 
 
-    public User( String firstName, String lastName, String email, String userName, String password) {
+    public User( String firstName, String lastName, String email, String userName, String password,int id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.userName = userName;
         this.password = password;
+        this.id = id;
         
+        
+    }
+    
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -36,15 +48,27 @@ public class User {
     }
     
     public String getUserName() {
-        return email;
+        return userName;
     }
 
     public void updateUserName(String userName) {
         this.userName = userName;
     }
-    public String getPassword() {
-        return userName;
+    
+    
+    public static Employee getUser(String username) throws SQLException {
+        int id = UserMapper.getUserID(username);
+        Employee result = Roster.getEmployee(id);
+        return result;
     }
+    
+    
+    
+    
+    public String getPassword() {
+        return password;
+    }
+    
 
     public void updatePassword(String password) {
         this.password = password;
