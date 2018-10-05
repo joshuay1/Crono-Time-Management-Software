@@ -52,6 +52,16 @@ public class AppRealm extends JdbcRealm {
         } else if (user instanceof Admin) {
             roles.add(AppSession.ADMIN_ROLE);
         }
+     /*   
+		for (Role r : userRoles) {
+			roles.add(r.getName());
+			Set<WildcardPermission> userPermissions	= r.getPermissions();
+			for (WildcardPermission permission : userPermissions) {
+				if (!permissions.contains(permission)) {
+					permissions.add(permission);
+				}
+			}
+		}*/
         
         for (Permission permission : role.getPermissions()) {
             perms.add(permission);
