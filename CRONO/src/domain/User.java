@@ -1,7 +1,9 @@
 package domain;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import datasource.TimeMapper;
 import datasource.UnitOfWork;
 import datasource.UserMapper;
 
@@ -16,22 +18,32 @@ public class User {
     private String userName;
     private String password;
     
-    private int id;
+    protected int id;
+    private int role;
     
 
 
-    public User( String firstName, String lastName, String email, String userName, String password,int id) {
+    public User( String firstName, String lastName, String email, String userName, String password,int id, int role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.userName = userName;
         this.password = password;
         this.id = id;
+        this.role = role;
         
         
     }
     
-    public int getID() {
+    public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
+	public int getID() {
         return id;
     }
 
@@ -58,7 +70,7 @@ public class User {
     
     public static Employee getUser(String username) throws SQLException {
         int id = UserMapper.getUserID(username);
-        Employee result = Roster.getEmployee(id);
+        Employee result = (Employee) Roster.getUser(id);
         return result;
     }
     
@@ -91,6 +103,11 @@ public class User {
     public void updateLastName(String lastName) {
         this.lastName = lastName;
     }
+    
+    public List<Time> getTimeSheet() throws SQLException {
+        return TimeMapper.findMyTime(id);
+	}
+	
     
 //    public static int getID(String username,String password) throws SQLException {
 //    	return UserMapper.checkLogin(username, password);

@@ -6,10 +6,11 @@ import java.util.Map;
 
 import domain.Employee;
 import domain.Time;
+import domain.User;
 
 public class IdentityMap {
 	
-    private static Map<Integer, Employee> employees = new HashMap<>();
+    private static Map<Integer, User> users = new HashMap<>();
     private static Map<Integer, Time> times = new HashMap<>();
     private static Map<Integer,ArrayList<Time>> personalTimes = new HashMap<Integer, ArrayList<Time>>();
 
@@ -32,20 +33,21 @@ public class IdentityMap {
         //IdentityMap.personalTimes.get(time.getUserID()).add(time); //adding to List<Time>
     }
 
-    public static Employee getEmployee(int userID) {
-        if(employees.containsKey(userID)) {
-        	return employees.get(userID);
+    public static User getUser(int userID) {
+        if(users.containsKey(userID)) {
+        	return users.get(userID);
         }
         else return null;
     }
 
-    public static void addEmployee(Employee employee) {
-    	IdentityMap.employees.put(employee.getID(), employee);
+    public static void addUser(User user) {
+    	IdentityMap.users.put(user.getID(), user);
     }
     
     public static List<Time> getPersonalTimes(int userID){
     	return personalTimes.get(userID);
     }
+    
 
 	
 }

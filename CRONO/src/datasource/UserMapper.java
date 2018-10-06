@@ -9,17 +9,18 @@ import java.util.List;
 
 import domain.Employee;
 import domain.Roster;
+import domain.User;
 
 public class UserMapper {
 	private final static String findStatementString =
 	         "SELECT * " +
-	         "  from APP.employees "+
+	         "  from APP.users "+
 	         "  WHERE userID = !0!";
 	
 	 private static final String findAllTimesStatement =
-	         "SELECT * from APP.employees";
+	         "SELECT * from APP.users";
 	
-	public static void getAllEmployees() throws SQLException {
+	public static void getAllUsers() throws SQLException {
 			PreparedStatement sqlPrepared = DBConnection.prepare(findAllTimesStatement);
 			ResultSet rs = sqlPrepared.executeQuery();
 			List<Employee> result = new ArrayList<Employee>();
@@ -30,13 +31,14 @@ public class UserMapper {
 				String email = rs.getString(4);
 				String username = rs.getString(5);
 				String password = rs.getString(6);
-				Roster.addEmployee(id, firstName, lastName, email, username, password);
+				int role = rs.getInt(7);
+				Roster.addUser(id, firstName, lastName, email, username, password,role);
 			}
 
 	}
 	
 	
-	public static Employee getEmployee(int id) throws SQLException {
+	public static User getUser(int id) throws SQLException {
 			String str = stringSplit(findStatementString, ""+id, 0);
 			PreparedStatement sqlPrepared = DBConnection.prepare(str);
 			ResultSet rs = sqlPrepared.executeQuery();
@@ -46,15 +48,16 @@ public class UserMapper {
 			String email = rs.getString(4);
 			String userName = rs.getString(5);
 			String password = rs.getString(6);
-			Employee employee =new Employee(id, firstName, lastName, email, userName, password);
-			return employee;
+			int role = rs.getInt(7);
+			User user =new Employee(id, firstName, lastName, email, userName, password,role);
+			return user;
 	}
 	
 	
 	
 	public static int getUserID(String userName) {
 		String sql = "Select * "
-				+ "From App.Employees "
+				+ "From App.users "
 				+ "WHERE username = '"+userName+"'";
 		PreparedStatement sqlPrepared;
 		try {
@@ -74,7 +77,7 @@ public class UserMapper {
 	
 	
 	public static void update(int userID, String firstName, String lastName, String email, String username, String password) throws SQLException {
-		String sql = "UPDATE APP.employees SET firstName = '"+ firstName+ "', lastName = '"+ lastName + "' , email = '" + email + "', username = '" + username + "' , password = '" + password + "' WHERE userID = "+ userID + "";
+		String sql = "UPDATE APP.users SET firstName = '"+ firstName+ "', lastName = '"+ lastName + "' , email = '" + email + "', username = '" + username + "' , password = '" + password + "' WHERE userID = "+ userID + "";
 		PreparedStatement sqlPrepared = DBConnection.prepare(sql);
 		int rs = sqlPrepared.executeUpdate();
 	
@@ -83,7 +86,7 @@ public class UserMapper {
 	public static int checkLogin(String username, String password) throws SQLException  {
 		try {
 			PreparedStatement stmt = DBConnection.prepare("SELECT userID " +
-			         "  from APP.employees " +
+			         "  from APP.users " +
 			         "  WHERE username ='"+username+"' AND password ='"+password+"'");
 			ResultSet rs = stmt.executeQuery();
 			rs.next();			
@@ -98,6 +101,12 @@ public class UserMapper {
 	private static String stringSplit(String stm, String input, int place) {
 		String str = stm.replaceAll("!"+place+"!", input);
 		return str;
+	}
+	public static void delete(int userID,String firstName, String lastName, String email, String username, String password) throws SQLException {
+		String sql = "DELETE FROM APP.users WHERE userID = "+userID;
+		PreparedStatement sqlPrepared = DBConnection.prepare(sql);
+		int rs = sqlPrepared.executeUpdate();
+	
 	}
 	
 

@@ -25,7 +25,7 @@ Welcome back, <%=wrappedSession.getUser("admin").getFirstName()%>
 
 <%} %>
 <div class='container'>
-	<form method="get" action ="home">
+	<form method="get" action ="/CRONO/home">
 	<input type="hidden"  name = "ID" value = "<%=wrappedSession.getUser("admin").getID()%>">
     <input type="submit" value="Login">
 	</form>
