@@ -1,4 +1,4 @@
-package scripts;
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +18,7 @@ import domain.Employee;
 import domain.Roster;
 
 @WebServlet("/createTime")
-public class ViewCreateTime extends HttpServlet {
+public class CreateTimeContoller extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,13 +32,23 @@ public class ViewCreateTime extends HttpServlet {
 		
 	     
         try {
-			Employee e = Roster.getEmployee(ID);
+			Employee e = (Employee) Roster.getUser(ID);
 			e.instertTime(ID, startTime, finishTime, date);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
         
-        response.sendRedirect("home?ID=" +ID);
+        response.sendRedirect("/CRONO/home");
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ServletContext servletContext = getServletContext();
+    	String view = "/views/createTime.jsp";
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
+        requestDispatcher.forward(request, response);
+		
+		
     }
 
 }

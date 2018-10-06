@@ -4,17 +4,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import datasource.UserMapper;
 import datasource.IdentityMap;
 import datasource.KeyTable;
 import datasource.TimeMapper;
 import datasource.UnitOfWork;
 
 public class Employee extends User {
-	private int id;
 	private List<Time> times = null;
-	public Employee(int id, String firstName, String lastName, String email, String userName, String password) {
-		super( firstName, lastName, email, userName, password,id);
+	public Employee(int id, String firstName, String lastName, String email, String userName, String password, int role) {
+		super( firstName, lastName, email, userName, password,id,role);
 		
 		
 		
@@ -71,7 +69,7 @@ public class Employee extends User {
 	}
 	
 	public int getNumberTimes() throws SQLException {
-		return TimeMapper.numberTimes(id);
+		return times.size();
 	}
 	
 

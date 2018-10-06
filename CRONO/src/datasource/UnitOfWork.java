@@ -7,14 +7,16 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-import domain.Employee;
+import domain.User;
 import domain.Time;
 
 public class UnitOfWork {
 	private List<Time> newTimeObjects = new ArrayList<Time>();
 	private List<Time> dirtyTimeObjects = new ArrayList<Time>();
 	private List<Time> deletedTimeObjects = new ArrayList<Time>();
-	private List<Employee> dirtyUserObjects = new ArrayList<Employee>();
+	private List<User> dirtyUserObjects = new ArrayList<User>();
+	private List<User> deletedUserObjects = new ArrayList<User>();
+
 	
 	private String hello = "";
 	
@@ -50,7 +52,7 @@ public class UnitOfWork {
 		dirtyTimeObjects.add(obj);
 	}
 	
-	public void registerDeleted(Time obj) {
+	public void registerDeletedTime(Time obj) {
 //		assertNotNull(obj.getUserID());
 		if (newTimeObjects.remove(obj)) return;
 			dirtyTimeObjects.remove(obj);
@@ -59,8 +61,12 @@ public class UnitOfWork {
 		}
 	}
 	
+	public void registerDeleteUser(User obj) {
+		deletedUserObjects.add(obj);
+	}
 	
-	public void registerDirtyUser(Employee obj) {
+	
+	public void registerDirtyUser(User obj) {
 		dirtyUserObjects.add(obj);
 		
 		
@@ -83,8 +89,11 @@ public class UnitOfWork {
 		for (Time obj : deletedTimeObjects) {
 			TimeMapper.delete(obj.getTimeID());
 		}
-		for(Employee obj: dirtyUserObjects) {
+		for(User obj: dirtyUserObjects) {
 			UserMapper.update(obj.getID(), obj.getFirstName(), obj.getLastName(), obj.getEmail(),obj.getUserName(),obj.getPassword());
+		}
+		for(User obj: deletedUserObjects) {
+			UserMapper.delete(obj.getID(), obj.getFirstName(), obj.getLastName(), obj.getEmail(),obj.getUserName(),obj.getPassword());
 		}
 	}
 }
