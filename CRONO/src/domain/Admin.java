@@ -14,9 +14,9 @@ public class Admin extends User {
 	}
 	
 	
-	public static List<User> getAllUsers() throws SQLException {
+	public static List<Employee> getAllUsers() throws SQLException {
         
-        return Roster.getUsers();
+        return Roster.getEmployees();
 	}
 	
 	

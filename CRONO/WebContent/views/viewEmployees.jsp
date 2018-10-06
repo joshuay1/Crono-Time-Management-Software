@@ -3,19 +3,25 @@
     
     <%@ page import="sesh.Session" %>
     <%@ page import= "domain.Admin" %>
-     <%@ page import= "domain.User" %>
+     <%@ page import= "domain.Employee" %>
     <%@ page import = "java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>View Users</title>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 </head>
 <body>
 
 <% 
 	Session wrappedSession = Session.refreshSession(session,"admin"); 
-		List<User> users = Admin.getAllUsers();
+		List<Employee> users = Admin.getAllUsers();
 		%>
 
 
@@ -43,7 +49,8 @@
 
     	</table>
    	</div>
-   	<div class="container">
+   	<h3>Create Profile:<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" id = "btn1"> Toggle</button></h3>   	
+   	<div class="container" id = "createProfile">
     <h1>Create New Profile</h1>
   	<hr>
 	<div class="row">
@@ -103,6 +110,13 @@
         </form>
       </div>
   </div>
-</div>
+<script>
+$("#createProfile").toggle();
+$(document).ready(function(){
+    $("#btn1").click(function(){
+        $("#createProfile").toggle();
+    });
+});
+</script>
 </body>
 </html>

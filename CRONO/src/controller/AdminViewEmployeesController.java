@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -44,10 +45,22 @@ public class AdminViewEmployeesController extends HttpServlet {
 		//creating new user
         String email = request.getParameter("email");
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String password1 = request.getParameter("password1");
+        String password2 = request.getParameter("password2");
         String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastname");
+        String lastName = request.getParameter("lastName");
         int role = Integer.parseInt(request.getParameter("Role"));
+        try {
+			Roster.createUser(firstName, lastName, email, username, password1, role);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        ServletContext servletContext = getServletContext();
+        String view = "/views/viewEmployees.jsp";
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
+        requestDispatcher.forward(request, response);
         
 	}
 

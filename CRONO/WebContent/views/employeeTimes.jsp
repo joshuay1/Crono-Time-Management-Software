@@ -17,9 +17,9 @@
 </head>
 <body>
 	<% 
-		Session wrappedSession = Session.refreshSession(session,"admin"); 
+		Session wrappedSession = Session.refreshSession(session,"user1"); 
 		Employee e = null;
-		e = (Employee) Roster.getUser(wrappedSession.getUser("admin").getID());
+		e = Roster.getEmployee(wrappedSession.getUser("user1").getID());
     	List<Time> times = null;
 		times = e.getTimeSheet();
 		%>
@@ -47,14 +47,15 @@
 	</nav>
 	
 	<div class='container'>
-		<h1>Welcome  <%=wrappedSession.getUser("admin").getFirstName()%></h1>
+		<h1>Welcome  <%=wrappedSession.getUser("user1").getFirstName()%></h1>
 		<h2>To your TimeSheet</h2>
 		<%-- <p>You have <% e.getNumberTimes();%><p> --%>
 		
 	<table class='table table-bordered table-striped'>
-	<tr><th>StartTime</th><th>FinishTime</th><th>Date</th><th>Payment for work (will convert for feature 2)</th></tr>
+	<tr><th>StartTime</th><th>FinishTime</th><th>Date</th><th>Payment for work (will convert for feature 2)</th><th>Paid</th></tr>
 	<% for(int i= 0 ; i<times.size(); i++) { %>
-		<tr><td> <%=times.get(i).getStartTime()  %></td><td><%=times.get(i).getFinishTime()  %></td><td><%=times.get(i).getDate()  %></td><td><%=times.get(i).getPay()  %></tr>
+		<tr><td> <%=times.get(i).getStartTime()  %></td><td><%=times.get(i).getFinishTime()  %></td><td><%=times.get(i).getDate()  %></td><td><%=times.get(i).getPay()  %></td>
+		<td><%if(times.get(i).getPaid() == 0){%>NO<%}else if(times.get(i).getPaid() == 1){%>YES!<% } %></td></tr>
 	<% } %>
 
     	</table>

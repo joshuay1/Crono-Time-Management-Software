@@ -19,7 +19,14 @@ public class HomeContoller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ServletContext servletContext = getServletContext();
-    	String view = "/views/home.jsp";
+    	int role = Integer.parseInt(request.getParameter("Role"));
+    	String view = "/views/index.jsp";
+    	if(role == 1) {
+    		view = "/views/employeeHome.jsp";
+    	}
+    	else if(role == 0) {
+    		view = "/views/adminHome.jsp";
+    	}
         RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
         requestDispatcher.forward(request, response);
 		
@@ -28,7 +35,7 @@ public class HomeContoller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ServletContext servletContext = getServletContext();
-    	String view = "/views/home.jsp";
+    	String view = "/views/index.jsp";
         RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
         requestDispatcher.forward(request, response);
 		

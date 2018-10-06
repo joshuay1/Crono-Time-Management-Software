@@ -11,30 +11,52 @@ import datasource.UserMapper;
 
 public class Roster {
 	
-	static List<User> users = new ArrayList<User>();
+	static List<Admin> admins = new ArrayList<Admin>();
+	static List<Employee> employees = new ArrayList<Employee>();
 	
-	public static List<User> getUsers() throws SQLException {
-		users.clear();
+	public static List<Employee> getEmployees() throws SQLException {
+		employees.clear();
         UserMapper.getAllUsers();
         ///add allemployees
-        return users;
+        return employees;
 	}
 	
 	
 	public static User getUser(int id)throws SQLException {
-		User e = IdentityMap.getUser(id); 
+		User e = IdentityMap.getAdmin(id); 
+		if(e == null) {
+			e = IdentityMap.getEmployee(id);
+		}
 		if(e == null) {
 			e = UserMapper.getUser(id);
 		}
 		return e;
 	}
-	
-	public static void addUser(int userID, String firstName,String lastName,String email,String username,String password, int role) {
-		User e = new User( firstName, lastName, email, username,password, userID, role);
-		IdentityMap.addUser(e);
-		users.add(e);
+	public static Employee getEmployee(int id)throws SQLException {
+		User u = UserMapper.getUser(id);
+		Employee e = new Employee(u.getID(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getUserName(), u.getPassword(), u.getRole());
+		return e;
 		
 	}
+	
+	public static void addUsers(int userID, String firstName,String lastName,String email,String username,String password, int role) {
+		
+		if(role == 0) {
+			Admin e = new Admin(userID, firstName, lastName, email, username,password, role);
+			IdentityMap.addAdmin(e);
+			admins.add(e);
+		}
+		else if(role ==1 ) {
+			Employee e = new Employee(userID, firstName, lastName, email, username,password, role);
+			IdentityMap.addEmployee(e);
+			employees.add(e);
+		}
+			
+		
+		
+	}
+	
+	
 	
 	public static void updateProfile(int userID, String firstName, String lastName, String email, String username, String password, int role) throws SQLException {
 		User e = Roster.getUser(userID);
@@ -64,13 +86,28 @@ public class Roster {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
-//		public static void createUser(String firstName, String lastName, String email, String username, String password, int role) {
-//			KeyTable.getKey("userID");
-//		}
-		
 	}
+		
+		
+	public static void createUser(String firstName, String lastName, String email, String username, String password, int role) throws SQLException {
+
+			int key =KeyTable.getKey("userID");
+
+
+			UserMapper.create(key, firstName, lastName, email, username, password, role);
+			if(role == 1) {
+				Employee e = new Employee(key, firstName, lastName, email, username, password, role);
+				IdentityMap.addEmployee(e);
+				
+			}
+			if(role == 0) {
+				Admin e = new Admin(key, firstName, lastName, email, username, password, role);
+				IdentityMap.addAdmin(e);
+				
+			}
+
+	}
+		
 	
 	
 	

@@ -29,8 +29,8 @@ public class Employee extends User {
 //		times = TimeMapper.findMyTime(id);
 //        return times;
 //	}
-    public static Time addTime(int userID, int timeID, String startTime, String finishTime, String date) {
-    	Time t = new Time(userID, timeID, startTime, finishTime, date);
+    public static Time addTime(int userID, int timeID, String startTime, String finishTime, String date, int paid) {
+    	Time t = new Time(userID, timeID, startTime, finishTime, date, paid);
     	IdentityMap.addTime(t);
     	
     	return t;
@@ -53,9 +53,9 @@ public class Employee extends User {
 	}
 	
 	
-	public void instertTime(int userID, String startTime, String finishTime, String date) throws SQLException {
+	public void instertTime(int userID, String startTime, String finishTime, String date, int paid) throws SQLException {
 		int timeID = KeyTable.getKey("timeID");
-		Time t = new Time(userID,timeID,startTime,finishTime,date);
+		Time t = new Time(userID,timeID,startTime,finishTime,date, paid);
 		IdentityMap.addTime(t);
 
 		//implementing UnitOfWork for adding new times
@@ -70,6 +70,15 @@ public class Employee extends User {
 	
 	public int getNumberTimes() throws SQLException {
 		return times.size();
+	}
+	
+	public static void payTime(int timeID) {
+		try {
+			TimeMapper.payTime(timeID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

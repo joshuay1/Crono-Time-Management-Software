@@ -30,7 +30,7 @@
 		<h1>Viewing <%=e.getFirstName() %>'s Profile
 		<div class='container'>
 			<form method="post" action ="/CRONO/adminEdit">
-				<input type="hidden"  name = "Type" value = "1">
+				<input type="hidden"  name = "type" value = 1>
 				<input type="hidden"  name = "ID" value = "<%=employeeID%>">
    				<input type="submit" value="Delete Users">
 			</form>
@@ -41,27 +41,38 @@
 		<div class='container' id = "TimeTableView">
 		<h1>This is:  <%=e.getFirstName()%> TimeSheet</h1>
 			<table class='table table-bordered table-striped'>
-			<tr><th>StartTime</th><th>FinishTime</th><th>Date</th><th>Payment for work (will convert for feature 2)</th></tr>
+			<tr><th>StartTime</th><th>FinishTime</th><th>Date</th><th>Payment for work (will convert for feature 2)</th><th>Paid</th></tr>
 			<% for(int i= 0 ; i<times.size(); i++) { %>
-				<tr><td> <%=times.get(i).getStartTime()  %></td><td><%=times.get(i).getFinishTime()  %></td><td><%=times.get(i).getDate()  %></td><td><%=times.get(i).getPay()  %></tr>
+				<tr><td> <%=times.get(i).getStartTime()  %></td><td><%=times.get(i).getFinishTime()  %></td><td><%=times.get(i).getDate()  %></td><td><%=times.get(i).getPay()  %></td><td><%if(times.get(i).getPaid() == 0){%>
+																																											
+																																															<form method="post" action ="/CRONO/adminEdit">
+																																																<input type="hidden"  name = "type" value = 2>
+																																																<input type="hidden"  name = "ID" value = "<%=times.get(i).getTimeID() %>">
+																																																<input type="hidden"  name = "userID" value = "<%=employeeID %>">
+																																												   				<input type="submit" value="Pay">
+																																															</form>
+																																														<% } else {%> Paid<% }%></td></tr>
 			<% } %>
 
     	</table>
    		</div>
    		</div>
    	
-	<h3>View/Edit Profile:<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" id = "btn2"> Toggle</button></h3>   	<div class="container" id = "profileEdit">
+	<h3>View/Edit Profile:<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" id = "btn2"> Toggle</button></h3>   	
+	<div class="container" id = "profileEdit">
     <h1>Edit <%=e.getFirstName()%> Profile </h1>
     <p>Current: <br><strong>First Name:</strong> <%=e.getFirstName() %>,</br> <br><strong>last name:</strong> <%=e.getLastName() %>,</br> <br><strong> Email:</strong> <%=e.getEmail() %>,</br> <br><strong> Username:</strong> <%=e.getUserName() %></br></p>
   	<hr>
 	<div class="row">
       <div class="col-md-9">
         
-        <form method = "POST" action ="/CRONO/editProfile" class="form-horizontal" role="form">
+        <form method = "POST" action ="/CRONO/adminEdit" class="form-horizontal" role="form">
         <input type = "hidden" name = "ID" value = "<%=e.getID()%>"></input>
          <input type = "hidden" name = "Role" value = "<%=e.getRole()%>"></input>
          <input type = "hidden" name = "Password1" value = "<%=e.getPassword()%>"></input>
          <input type = "hidden" name = "Password2" value = "<%=e.getPassword()%>"></input>
+         <input type="hidden"  name = "type" value = 3>
+         
           <div class="form-group">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">

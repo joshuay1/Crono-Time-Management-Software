@@ -27,13 +27,14 @@ public class CreateTimeContoller extends HttpServlet {
         String startTime = request.getParameter("startTime1");
         String finishTime = request.getParameter("finishTime1");
         String date = request.getParameter("date1");
+        System.out.print("id "+ ID + ", startTIme "+startTime +", finishTime "+finishTime+", date "+date);
 
 		
 		
 	     
         try {
-			Employee e = (Employee) Roster.getUser(ID);
-			e.instertTime(ID, startTime, finishTime, date);
+			Employee e = Roster.getEmployee(ID);
+			e.instertTime(ID, startTime, finishTime, date,0);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

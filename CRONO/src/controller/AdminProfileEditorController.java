@@ -39,14 +39,40 @@ public class AdminProfileEditorController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int type = Integer.parseInt(request.getParameter("Type"));
-		if(type == 1) {
+		int type = Integer.parseInt(request.getParameter("type"));
+		if(type == 1) {//deleting user
 			int id = Integer.parseInt(request.getParameter("ID"));
 	
 			Roster.deleteUser(id);
 	        
 	        response.sendRedirect("/CRONO/ViewEmployees");
 		}
+		else if (type == 2) { //paying
+			int timeID = Integer.parseInt(request.getParameter("ID"));
+			int userID = Integer.parseInt(request.getParameter("userID"));
+			Employee.payTime(timeID);
+			response.sendRedirect("/CRONO/adminEdit?ID="+userID);
+			
+		}
+		else if (type == 3) {
+			int ID = Integer.parseInt(request.getParameter("ID"));
+	        String email = request.getParameter("email");
+	        String username = request.getParameter("username");
+	        String password = request.getParameter("password");
+	        String firstName = request.getParameter("firstName");
+	        String lastName = request.getParameter("lastName");
+	        int role = Integer.parseInt(request.getParameter("Role"));
+	        
+	        try {
+				Roster.updateProfile(ID, firstName, lastName, email, username, password, role);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        response.sendRedirect("/CRONO/ViewEmployees");
+	        
+		}
+		
 	}
 
 }

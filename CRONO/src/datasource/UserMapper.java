@@ -32,7 +32,8 @@ public class UserMapper {
 				String username = rs.getString(5);
 				String password = rs.getString(6);
 				int role = rs.getInt(7);
-				Roster.addUser(id, firstName, lastName, email, username, password,role);
+	
+				Roster.addUsers(id, firstName, lastName, email, username, password,role);
 			}
 
 	}
@@ -73,23 +74,6 @@ public class UserMapper {
 		return -1;
 	}
 	
-	public static String getUserPermission(String role) {
-		String sql = "Select permission "
-				+ "From App.roles_permission "
-				+ "WHERE role = '"+role+"'";
-		PreparedStatement sqlPrepared;
-		try {
-			sqlPrepared = DBConnection.prepare(sql);
-			ResultSet rs = sqlPrepared.executeQuery();
-			rs.next();
-			return rs.getString(1);
-		} catch (SQLException e) {
-			System.out.println("Errror with SQL");
-			e.printStackTrace();
-		}
-		
-		return "Error";
-	}
 	
 	
 	
@@ -125,6 +109,36 @@ public class UserMapper {
 		int rs = sqlPrepared.executeUpdate();
 	
 	}
+	
+	public static void create(int userID,String firstName, String lastName, String email, String username, String password, int role) throws SQLException {
+		System.out.println(" VALUES ("+userID + ",'"+firstName+"','"+lastName+"','"+email+"','"+username+"','"+password+"',"+role+")");
+		String sql = "INSERT INTO APP.users (userID, firstName, lastName, email, username, password, role)" +
+					" VALUES ("+userID + ",'"+firstName+"','"+lastName+"','"+email+"','"+username+"','"+password+"',"+role+")";
+		PreparedStatement sqlPrepared = DBConnection.prepare(sql);
+		int rs = sqlPrepared.executeUpdate();
+		
+	
+	
+	}
+	
+	public static String getUserPermission(String role) {
+		String sql = "Select permission "
+				+ "From App.roles_permission "
+				+ "WHERE role = '"+role+"'";
+		PreparedStatement sqlPrepared;
+		try {
+			sqlPrepared = DBConnection.prepare(sql);
+			ResultSet rs = sqlPrepared.executeQuery();
+			rs.next();
+			return rs.getString(1);
+		} catch (SQLException e) {
+			System.out.println("Errror with SQL");
+			e.printStackTrace();
+		}
+		
+		return "Error";
+	}
+	
 	
 
 }

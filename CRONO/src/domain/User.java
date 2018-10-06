@@ -3,6 +3,8 @@ package domain;
 import java.sql.SQLException;
 import java.util.List;
 
+import datasource.IdentityMap;
+import datasource.KeyTable;
 import datasource.TimeMapper;
 import datasource.UnitOfWork;
 import datasource.UserMapper;

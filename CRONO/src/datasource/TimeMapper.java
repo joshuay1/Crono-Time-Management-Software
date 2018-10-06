@@ -23,7 +23,7 @@ public class TimeMapper {
 	 
 	 private static final String insertStatement =
 			 
-			 "INSERT INTO APP.times VALUES (!0!, !1!, '!2!','!3!','!4!')";
+			 "INSERT INTO APP.times VALUES (!0!, !1!, '!2!','!3!','!4!', 0)";
 	 
 	 private static final String updateStatement =
 			 
@@ -45,7 +45,8 @@ public class TimeMapper {
 			String startTime = rs.getString(3);
 	        String finishTime = rs.getString(4);
 	        String date = rs.getString(5);
-	        Time t = new Time(userID,timeID, startTime, finishTime, date);
+	        int paid = rs.getInt(6);
+	        Time t = new Time(userID,timeID, startTime, finishTime, date,paid);
 	        result.add(t);
 		}
 		return result;
@@ -116,6 +117,12 @@ public class TimeMapper {
 			
 			return count;
 			
+		}
+		
+		public static void payTime(int id) throws SQLException {
+			String sql = "UPDATE APP.times SET paid = "+1+" WHERE timeID = "+ id + "";
+			PreparedStatement sqlPrepared = DBConnection.prepare(sql);
+			int rs = sqlPrepared.executeUpdate();
 		}
 		
 		

@@ -1,13 +1,13 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
  <%@ page import="sesh.Session" %>
- <% Session wrappedSession = Session.refreshSession(session,"admin"); %>
+ <% Session wrappedSession = Session.refreshSession(session,"user1"); %>
 
 
 <html>
 <head>
   
-    <title> Edit: <%=wrappedSession.getUser("admin").getFirstName()%></title>
+    <title> Edit: <%=wrappedSession.getUser("user1").getFirstName()%></title>
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'/>
 </head>
 <body>
@@ -42,9 +42,9 @@
 	<div class="row">
       <div class="col-md-9">
         
-        <form method = "POST" action ="editProfile" class="form-horizontal" role="form">
-        <input type = "hidden" name = "ID" value = "<%=wrappedSession.getUser("admin").getID()%>"></input>
-        <input type = "hidden" name = "Role" value = "<%=wrappedSession.getUser("admin").getRole()%>"></input>
+        <form method = "POST" action ="/CRONO/editProfile" class="form-horizontal" role="form">
+        <input type = "hidden" name = "ID" value = "<%=wrappedSession.getUser("user1").getID()%>"></input>
+        <input type = "hidden" name = "Role" value = "<%=wrappedSession.getUser("user1").getRole()%>"></input>
           <div class="form-group">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">

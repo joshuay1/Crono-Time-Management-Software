@@ -13,14 +13,21 @@ public class Time {
 	
 	
 	private String date;
-	
-	public Time(int userID, int timeID, String startTime, String finishTime, String date) {
+	private int paid;
+	public Time(int userID, int timeID, String startTime, String finishTime, String date, int paid) {
 		this.startTime = startTime;
 		this.finishTime = finishTime;
 		this.date = date;
 		//foreign key mappping!
 		this.userID = userID;
 		this.timeID = timeID;
+		this.paid = paid;
+	}
+	public int getPaid() {
+		return paid;
+	}
+	public void setPaid(int paid) {
+		this.paid = paid;
 	}
 	public int getUserID() {
         return userID;

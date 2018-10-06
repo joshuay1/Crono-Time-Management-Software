@@ -32,7 +32,7 @@ public class EditProfileContoller extends HttpServlet {
 	        String username = request.getParameter("username");
 	        String password = request.getParameter("password");
 	        String firstName = request.getParameter("firstName");
-	        String lastName = request.getParameter("lastname");
+	        String lastName = request.getParameter("lastName");
 	        int role = Integer.parseInt(request.getParameter("Role"));
 	        
 	        try {
