@@ -11,6 +11,7 @@ import datasource.TimeMapper;
 import datasource.UnitOfWork;
 
 public class Employee extends User {
+	private int id;
 	private List<Time> times = null;
 	public Employee(int id, String firstName, String lastName, String email, String userName, String password) {
 		super( firstName, lastName, email, userName, password,id);
@@ -70,7 +71,7 @@ public class Employee extends User {
 	}
 	
 	public int getNumberTimes() throws SQLException {
-		return times.size();
+		return TimeMapper.numberTimes(id);
 	}
 	
 

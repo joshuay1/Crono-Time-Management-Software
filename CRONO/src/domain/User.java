@@ -16,7 +16,7 @@ public class User {
     private String userName;
     private String password;
     
-    protected int id;
+    private int id;
     
 
 
