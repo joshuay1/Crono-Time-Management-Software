@@ -8,24 +8,26 @@ DROP TABLE IF EXISTS APP.user;
 DROP TABLE IF EXISTS APP.keys;
 CREATE SCHEMA APP;
 --
-CREATE TABLE APP.user(
-   userID INT,
+CREATE TABLE APP.users(
+   usersID INT,
    firstName VARCHAR(50),
    lastNAme VARCHAR(50),
    email VARCHAR(100),
-   username VARCHAR(50) UNIQUE,
+   usersname VARCHAR(50) UNIQUE,
    password VARCHAR(50),
-   PRIMARY KEY (userID));
+   role INT,
+   PRIMARY KEY (usersID));
  
-INSERT INTO APP.user VALUES (000, 'Callum', 'Vidler','email@example.com','admin', 'password1');
-INSERT INTO APP.user VALUES (001, 'Joshua', 'Yang','email2@example.com','admin2', 'password2');
-INSERT INTO APP.user VALUES (002, 'Jack', 'Ho','email3@example.com','user1', 'password3');
-INSERT INTO APP.user VALUES (003, 'Dana', 'Bill','email4@example.com','user2', 'password4');
-INSERT INTO APP.user VALUES (004, 'Alex', 'Blob','email5@example.com','user3', 'password5');
-INSERT INTO APP.user VALUES (005, 'Adam', 'Go','email6@example.com','user4', 'password6');
-INSERT INTO APP.user VALUES (006, 'David', 'Run','email7@example.com','user5', 'password7');
+INSERT INTO APP.users VALUES (000, 'Callum', 'Vidler','email@example.com','admin', 'password1',0);
+INSERT INTO APP.users VALUES (001, 'Joshua', 'Yang','email2@example.com','admin2', 'password2',0);
+INSERT INTO APP.users VALUES (002, 'Jack', 'Ho','email3@example.com','user1', 'password3',1);
+INSERT INTO APP.users VALUES (003, 'Dana', 'Bill','email4@example.com','user2', 'password4',1);
+INSERT INTO APP.users VALUES (004, 'Alex', 'Blob','email5@example.com','user3', 'password5',1);
+INSERT INTO APP.users VALUES (005, 'Adam', 'Go','email6@example.com','user4', 'password6',1);
+INSERT INTO APP.users VALUES (006, 'David', 'Run','email7@example.com','user5', 'password7',1);
 --
 --
+/*
 CREATE TABLE APP.user_roles(
 	userID INT,
 	roleID INT,
@@ -41,6 +43,7 @@ INSERT INTO APP.user_roles VALUES (005, 1, 'Employee');
 INSERT INTO APP.user_roles VALUES (006, 1, 'Employee');
 INSERT INTO APP.user_roles VALUES (007, 1, 'Employee');
 --
+*/
 --
 CREATE TABLE APP.roles_permission(
 	PermID INT,
@@ -64,7 +67,7 @@ CREATE TABLE APP.times(
    startTime VARCHAR(50),
    finishTime VARCHAR(50),
    date VARCHAR(50),
-   FOREIGN KEY (userID) REFERENCES APP.employees(userID),
+   FOREIGN KEY (userID) REFERENCES APP.users(userID) ON DELETE CASCADE,
    PRIMARY KEY (timeID));
  
 INSERT INTO APP.times VALUES (001,1, '09:23', '17:30','11/11/2011');
@@ -87,7 +90,7 @@ INSERT INTO APP.keys VALUES (2,7,68 );
 CREATE TABLE APP.pay(
 	userID INT,
 	payAmount FLOAT,
-	FOREIGN KEY (userID) REFERENCES APP.employees(userID));
+	FOREIGN KEY (userID) REFERENCES APP.users(userID) ON DELETE CASCADE);
 	
 INSERT INTO APP.pay VALUES(1, 25.5);
 INSERT INTO APP.pay VALUES(2, 25.5);

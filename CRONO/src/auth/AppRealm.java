@@ -31,8 +31,8 @@ public class AppRealm extends JdbcRealm {
 
     @Override
     protected AuthorizationInfo getAuthorizationInfo(PrincipalCollection principals) {
-        Set<String> roles = new HashSet<>();
-        Set<Permission> perms = new HashSet<Permission>();
+        // Set<String> roles = new HashSet<>();
+        Set<String> perms = new HashSet<>();
         if (principals.isEmpty()) {
             System.out.println("Given principals to authorize are empty.");
             return null;
@@ -47,26 +47,13 @@ public class AppRealm extends JdbcRealm {
         }
 
         // add roles of the user according to its type
-        if (user instanceof Employee) {
-            roles.add(AppSession.EMPLOYEE_ROLE);
-        } else if (user instanceof Admin) {
-            roles.add(AppSession.ADMIN_ROLE);
-        }
-     /*   
-		for (Role r : userRoles) {
-			roles.add(r.getName());
-			Set<WildcardPermission> userPermissions	= r.getPermissions();
-			for (WildcardPermission permission : userPermissions) {
-				if (!permissions.contains(permission)) {
-					permissions.add(permission);
-				}
-			}
-		}*/
-        
-        for (Permission permission : role.getPermissions()) {
-            perms.add(permission);
-        }
+        role = user.getRole
+        perms = user.getUserPermission(role);
+        SimpleAuthorizationInfo authinfo = new SimpleAuthorizationInfo;
+        authinfo.addStringPermission(perms);
+        authinfo.addRoles(role);
+       
 
-        return new SimpleAuthorizationInfo(roles);
+        return authinfo;
     }
 }
