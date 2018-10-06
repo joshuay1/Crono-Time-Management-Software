@@ -73,6 +73,23 @@ public class UserMapper {
 		return -1;
 	}
 	
+	public static String getUserPermission(String role) {
+		String sql = "Select permission "
+				+ "From App.roles_permission "
+				+ "WHERE role = '"+role+"'";
+		PreparedStatement sqlPrepared;
+		try {
+			sqlPrepared = DBConnection.prepare(sql);
+			ResultSet rs = sqlPrepared.executeQuery();
+			rs.next();
+			return rs.getString(1);
+		} catch (SQLException e) {
+			System.out.println("Errror with SQL");
+			e.printStackTrace();
+		}
+		
+		return "Error";
+	}
 	
 	
 	
