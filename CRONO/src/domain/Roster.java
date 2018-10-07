@@ -39,14 +39,14 @@ public class Roster {
 		
 	}
 	
-	public static void addUsers(int userID, String firstName,String lastName,String email,String username,String password, int role) {
+	public static void addUsers(int userID, String firstName,String lastName,String email,String username,String password, String role) {
 		
-		if(role == 0) {
+		if(role == "Admin") {
 			Admin e = new Admin(userID, firstName, lastName, email, username,password, role);
 			IdentityMap.addAdmin(e);
 			admins.add(e);
 		}
-		else if(role ==1 ) {
+		else if(role == "Employee" ) {
 			Employee e = new Employee(userID, firstName, lastName, email, username,password, role);
 			IdentityMap.addEmployee(e);
 			employees.add(e);
@@ -89,18 +89,18 @@ public class Roster {
 	}
 		
 		
-	public static void createUser(String firstName, String lastName, String email, String username, String password, int role) throws SQLException {
+	public static void createUser(String firstName, String lastName, String email, String username, String password, String role) throws SQLException {
 
 			int key =KeyTable.getKey("userID");
 
 
 			UserMapper.create(key, firstName, lastName, email, username, password, role);
-			if(role == 1) {
+			if(role == "Employee") {
 				Employee e = new Employee(key, firstName, lastName, email, username, password, role);
 				IdentityMap.addEmployee(e);
 				
 			}
-			if(role == 0) {
+			if(role == "Admin") {
 				Admin e = new Admin(key, firstName, lastName, email, username, password, role);
 				IdentityMap.addAdmin(e);
 				

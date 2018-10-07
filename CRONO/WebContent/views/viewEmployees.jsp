@@ -33,7 +33,7 @@
 	<table class='table table-bordered table-striped'>
 	<tr><th>View</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Role</th></tr>
 	<%for(int i= 0 ; i<users.size(); i++) { 
-		if(users.get(i).getRole() == 1){%>
+		if(users.get(i).getRole() == "Employee"){%>
 		<tr>
 			<td>
 				<form method="get" action ="/CRONO/adminEdit">

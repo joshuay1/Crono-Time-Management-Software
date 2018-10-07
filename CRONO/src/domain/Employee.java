@@ -11,7 +11,7 @@ import datasource.UnitOfWork;
 
 public class Employee extends User {
 	private List<Time> times = null;
-	public Employee(int id, String firstName, String lastName, String email, String userName, String password, int role) {
+	public Employee(int id, String firstName, String lastName, String email, String userName, String password, String role) {
 		super( firstName, lastName, email, userName, password,id,role);
 		
 		

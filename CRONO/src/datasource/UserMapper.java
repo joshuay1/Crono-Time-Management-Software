@@ -31,7 +31,7 @@ public class UserMapper {
 				String email = rs.getString(4);
 				String username = rs.getString(5);
 				String password = rs.getString(6);
-				int role = rs.getInt(7);
+				String role = rs.getString(7);
 	
 				Roster.addUsers(id, firstName, lastName, email, username, password,role);
 			}
@@ -49,11 +49,28 @@ public class UserMapper {
 			String email = rs.getString(4);
 			String userName = rs.getString(5);
 			String password = rs.getString(6);
-			int role = rs.getInt(7);
-			User user =new Employee(id, firstName, lastName, email, userName, password,role);
+			String role = rs.getString(7);
+			User user =new User( firstName, lastName, email, userName, password,id,role);
 			return user;
 	}
 	
+	
+	public static User getUser(String userName) throws SQLException {
+		String sql = "Select * "
+				+ "From App.users "
+				+ "WHERE username = '"+userName+"'";
+		PreparedStatement sqlPrepared = DBConnection.prepare(sql);
+		ResultSet rs = sqlPrepared.executeQuery();
+		rs.next();
+		int id = rs.getInt(1);
+		String firstName = rs.getString(2);
+		String lastName = rs.getString(3);
+		String email = rs.getString(4);
+		String password = rs.getString(6);
+		String role = rs.getString(7);
+		User user =new User( firstName, lastName, email, userName, password,id,role);
+		return user;
+	}
 	
 	
 	public static int getUserID(String userName) {
@@ -110,7 +127,7 @@ public class UserMapper {
 	
 	}
 	
-	public static void create(int userID,String firstName, String lastName, String email, String username, String password, int role) throws SQLException {
+	public static void create(int userID,String firstName, String lastName, String email, String username, String password, String role) throws SQLException {
 		System.out.println(" VALUES ("+userID + ",'"+firstName+"','"+lastName+"','"+email+"','"+username+"','"+password+"',"+role+")");
 		String sql = "INSERT INTO APP.users (userID, firstName, lastName, email, username, password, role)" +
 					" VALUES ("+userID + ",'"+firstName+"','"+lastName+"','"+email+"','"+username+"','"+password+"',"+role+")";

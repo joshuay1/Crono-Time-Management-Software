@@ -49,7 +49,7 @@ public class AdminViewEmployeesController extends HttpServlet {
         String password2 = request.getParameter("password2");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        int role = Integer.parseInt(request.getParameter("Role"));
+        String role = request.getParameter("String");
         try {
 			Roster.createUser(firstName, lastName, email, username, password1, role);
 		} catch (SQLException e) {

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import="sesh.Session" %>
+ <%@ page import="auth.AppSession" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,6 @@
 <link rel='stylesheet' href='style.css'/>
 </head>
 <body>
-<% Session wrappedSession = Session.refreshSession(session,"user1"); %>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <a class="navbar-brand" href="#">CRONO</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +34,7 @@
 	</nav>
 	
 	<div class='container'>
-		<h1>Welcome  <%=wrappedSession.getUser("user1").getFirstName()%></h1>
+		<h1>Welcome  <%=AppSession.getUser().getFirstName()%></h1>
 		<h2>To your HomePage</h2>
 	</div>
 

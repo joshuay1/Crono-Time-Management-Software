@@ -8,7 +8,7 @@ import datasource.UserMapper;
 
 public class Admin extends User {
 	
-	public Admin(int id, String firstName, String lastName, String email, String userName, String password, int role) {
+	public Admin(int id, String firstName, String lastName, String email, String userName, String password, String role) {
 		super( firstName, lastName, email, userName, password,id,role);
 		
 	}

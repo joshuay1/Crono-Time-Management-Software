@@ -1,4 +1,4 @@
-<%@ page import="sesh.Session" %>
+<%@ page import="auth.AppSession" %>
 <%@ page import = "domain.User" %>
 <!DOCTYPE html>
 <html>
@@ -15,25 +15,33 @@
 	response.addCookie(cook);
 	Cookie ck[]=request.getCookies();
     String username = ck[0].getValue(); */
-    Session wrappedSession = Session.refreshSession(session,"admin");
-    User u = wrappedSession.getUser("admin");
-    if (session.isNew()) {%>
+    
+    
+//    Session wrappedSession = Session.refreshSession(session,"admin");
+//    User u = wrappedSession.getUser("admin");
+// <%=AppSession.getUser().getFirstName()
+//    if (session.isNew()) {
+%>
 
-Hello new user! We hope you'll like it here :)
+
+<%if (!AppSession.isAuthenticated()) {%>
+Login here
+
+
+<form action="/CRONO/home" method="post">
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <input type="submit" value="Login">
+</form>
 
 <% } else {%>
+Welcome back
 
-
-Welcome back, <%=u.getFirstName()%>
+<form action="/CRONO/logout" method="post">
+    <input type="submit" value="Logout">
+</form>
 
 <%} %>
-<div class='container'>
-	<form method="post" action ="/CRONO/home">
-	<%-- <input type="hidden"  name = "Role" value = "<%=u.getRole()%>"> --%>
-	<input type="text"  name = "Role" placeholder = "enter role: admin = 0, employee = 1">
-    <input type="submit" value="Login">
-	</form>
-</div>
-
 </body>
-</html> 
+
+</html>
