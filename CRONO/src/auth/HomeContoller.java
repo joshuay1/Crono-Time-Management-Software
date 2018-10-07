@@ -57,10 +57,11 @@ public class HomeContoller extends HttpServlet {
 			User user = User.getUser(username);
 
             AppSession.init(user);
+            System.out.println("HELLO" + user.getFirstName());
             if (AppSession.isAuthenticated()) {
-            	if(AppSession.hasRole(AppSession.EMPLOYEE_ROLE)) {
+            	if(AppSession.getUser().getRole()=="Employee") {
             		view = "/views/employeeHome.jsp";
-            	} else if(AppSession.hasRole(AppSession.ADMIN_ROLE)) {
+            	} else if(AppSession.getUser().getRole()== "Admin") {
         		view = "/views/adminHome.jsp";
         		} else {
         			response.sendError(403);

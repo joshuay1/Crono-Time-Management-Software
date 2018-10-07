@@ -44,7 +44,7 @@ public class AppRealm extends JdbcRealm {
             return null;
         }
 
-        String username = (String) principals.getPrimaryPrincipal();
+        int username = (Integer) principals.getPrimaryPrincipal();
         User user;
 		try {
 			user = User.getUser(username);
@@ -56,10 +56,10 @@ public class AppRealm extends JdbcRealm {
 
 
         // add roles of the user according to its type
-        Set<String> role = new HashSet<>();
-        role.add(user.getRole());
+        // Set<String> role = new HashSet<>();
+        // role.add(user.getRole());
         String perms = user.getUserPermission(user.getRole());
-        SimpleAuthorizationInfo authinfo = new SimpleAuthorizationInfo(role);
+        SimpleAuthorizationInfo authinfo = new SimpleAuthorizationInfo();
         authinfo.addStringPermission(perms);
        
        

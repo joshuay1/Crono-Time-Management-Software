@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import concurrency.LockManager;
 import domain.Roster;
+import sesh.Session;
 
 /**
  * Servlet implementation class AdminViewEmployeesController
@@ -43,19 +45,30 @@ public class AdminViewEmployeesController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//creating new user
+//		Session session = Session.refreshSession(request.getSession(),"admin");
+		
+//		try {
+//			
+//			//LockManager.getInstance().acquireWriteLock(session.getUser("admin"));
+//		}
+//		catch(InterruptedException e) {
+//			System.out.println("Acquiring Write lock when admin editing user");
+//		}
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        String role = request.getParameter("String");
+        String role = request.getParameter("Role");
         try {
 			Roster.createUser(firstName, lastName, email, username, password1, role);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+//        LockManager.getInstance().releaseWriteLock(session.getUser("admin"));
         
         ServletContext servletContext = getServletContext();
         String view = "/views/viewEmployees.jsp";

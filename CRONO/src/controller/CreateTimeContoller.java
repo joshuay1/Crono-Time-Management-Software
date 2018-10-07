@@ -23,11 +23,11 @@ public class CreateTimeContoller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //    	response.setContentType("text.html; charset=UFT-8");
+    	
     	int ID = Integer.parseInt(request.getParameter("ID"));
         String startTime = request.getParameter("startTime1");
         String finishTime = request.getParameter("finishTime1");
         String date = request.getParameter("date1");
-        System.out.print("id "+ ID + ", startTIme "+startTime +", finishTime "+finishTime+", date "+date);
 
 		
 		

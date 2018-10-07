@@ -34,20 +34,20 @@ public class Roster {
 	}
 	public static Employee getEmployee(int id)throws SQLException {
 		User u = UserMapper.getUser(id);
-		Employee e = new Employee(u.getID(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getUserName(), u.getPassword(), u.getRole());
+		Employee e = new Employee(u.getID(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getUserName(), u.getPassword(), u.getRole(),u.getVersionN());
 		return e;
 		
 	}
 	
-	public static void addUsers(int userID, String firstName,String lastName,String email,String username,String password, String role) {
+	public static void addUsers(int userID, String firstName,String lastName,String email,String username,String password, String role,int version) {
 		
 		if(role == "Admin") {
-			Admin e = new Admin(userID, firstName, lastName, email, username,password, role);
+			Admin e = new Admin(userID, firstName, lastName, email, username,password, role,version);
 			IdentityMap.addAdmin(e);
 			admins.add(e);
 		}
-		else if(role == "Employee" ) {
-			Employee e = new Employee(userID, firstName, lastName, email, username,password, role);
+		else if(role =="Employee" ) {
+			Employee e = new Employee(userID, firstName, lastName, email, username,password, role,version);
 			IdentityMap.addEmployee(e);
 			employees.add(e);
 		}
@@ -94,14 +94,14 @@ public class Roster {
 			int key =KeyTable.getKey("userID");
 
 
-			UserMapper.create(key, firstName, lastName, email, username, password, role);
+			UserMapper.create(key, firstName, lastName, email, username, password, role,1);
 			if(role == "Employee") {
-				Employee e = new Employee(key, firstName, lastName, email, username, password, role);
+				Employee e = new Employee(key, firstName, lastName, email, username, password, role,1);
 				IdentityMap.addEmployee(e);
 				
 			}
 			if(role == "Admin") {
-				Admin e = new Admin(key, firstName, lastName, email, username, password, role);
+				Admin e = new Admin(key, firstName, lastName, email, username, password, role,1);
 				IdentityMap.addAdmin(e);
 				
 			}

@@ -14,15 +14,28 @@ public class Time {
 	
 	private String date;
 	private int paid;
-	public Time(int userID, int timeID, String startTime, String finishTime, String date, int paid) {
+	private int version;
+	public Time(int userID, int timeID, String startTime, String finishTime, String date, int paid,int version) {
 		this.startTime = startTime;
 		this.finishTime = finishTime;
 		this.date = date;
-		//foreign key mappping!
 		this.userID = userID;
 		this.timeID = timeID;
 		this.paid = paid;
+		this.version = version;
 	}
+	
+	
+	public int getVersion() {
+		return version;
+	}
+
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+
 	public int getPaid() {
 		return paid;
 	}
@@ -69,7 +82,7 @@ public class Time {
     
     
     public static Pay createPay(float pay, String startTime, String finishTime) {
-    	Pay p = new Pay(pay, startTime, finishTime);
+    	Pay p = new Pay(pay, startTime, finishTime,1);
     	return p;
     }
     

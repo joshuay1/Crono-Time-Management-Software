@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import concurrency.LockingMapper;
+
 import static org.junit.Assert.*;
 
 import domain.User;
@@ -41,8 +43,6 @@ public class UnitOfWork {
 //		assertTrue(!dirtyTimeObjects.contains(obj));
 //		assertTrue(!deletedTimeObjects.contains(obj));
 //		assertTrue(!newTimeObjects.contains(obj));
-		System.out.println("insert");
-		hello = "insert";
 		newTimeObjects.add(obj);
 	}
 	
@@ -84,13 +84,20 @@ public class UnitOfWork {
 			TimeMapper.insert(obj.getUserID(),obj.getTimeID(), obj.getStartTime(),obj.getFinishTime(),obj.getDate());
 		}
 		for (Time obj : dirtyTimeObjects) {
-			TimeMapper.update(obj.getUserID(),obj.getTimeID(), obj.getStartTime(),obj.getFinishTime(),obj.getDate());
+			LockingMapper lm = new LockingMapper();
+			lm.updateTime(obj);
 		}
 		for (Time obj : deletedTimeObjects) {
 			TimeMapper.delete(obj.getTimeID());
 		}
 		for(User obj: dirtyUserObjects) {
-			UserMapper.update(obj.getID(), obj.getFirstName(), obj.getLastName(), obj.getEmail(),obj.getUserName(),obj.getPassword());
+			LockingMapper lm = new LockingMapper();
+			try {
+				lm.updateUser(obj);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		for(User obj: deletedUserObjects) {
 			UserMapper.delete(obj.getID(), obj.getFirstName(), obj.getLastName(), obj.getEmail(),obj.getUserName(),obj.getPassword());

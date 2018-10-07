@@ -35,7 +35,7 @@ Login here
 </form>
 
 <% } else {%>
-Welcome back
+Welcome back <%=AppSession.getUser().getFirstName()%>
 
 <form action="/CRONO/logout" method="post">
     <input type="submit" value="Logout">

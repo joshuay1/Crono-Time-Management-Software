@@ -1,7 +1,6 @@
 package domain;
 
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 
 import datasource.IdentityMap;
@@ -23,10 +22,11 @@ public class User {
     
     protected int id;
     private String role;
-    
+    private int pay;
+    private int versionN;
 
 
-    public User( String firstName, String lastName, String email, String userName, String password,int id, String role) {
+    public User( String firstName, String lastName, String email, String userName, String password,int id, String role,int versionN) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -34,11 +34,20 @@ public class User {
         this.password = password;
         this.id = id;
         this.role = role;
+        this.versionN = versionN;
         
         
     }
     
-    public String getRole() {
+    public int getVersionN() {
+		return versionN;
+	}
+
+	public void setVersionN(int versionN) {
+		this.versionN = versionN;
+	}
+
+	public String getRole() {
 		return role;
 	}
 
@@ -70,7 +79,6 @@ public class User {
         this.userName = userName;
     }
     
-
     public static User getUser(int userId) throws SQLException {
         return UserMapper.getUser(userId);
     }
@@ -83,6 +91,9 @@ public class User {
     public String getUserPermission(String role) {
         return UserMapper.getUserPermission(role);
     }
+    
+    
+    
     
     
     public String getPassword() {
@@ -115,6 +126,7 @@ public class User {
     public List<Time> getTimeSheet() throws SQLException {
         return TimeMapper.findMyTime(id);
 	}
+
 	
     
 //    public static int getID(String username,String password) throws SQLException {

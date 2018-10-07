@@ -11,8 +11,8 @@ import datasource.UnitOfWork;
 
 public class Employee extends User {
 	private List<Time> times = null;
-	public Employee(int id, String firstName, String lastName, String email, String userName, String password, String role) {
-		super( firstName, lastName, email, userName, password,id,role);
+	public Employee(int id, String firstName, String lastName, String email, String userName, String password, String role, int versionN) {
+		super( firstName, lastName, email, userName, password,id,role,versionN);
 		
 		
 		
@@ -29,8 +29,8 @@ public class Employee extends User {
 //		times = TimeMapper.findMyTime(id);
 //        return times;
 //	}
-    public static Time addTime(int userID, int timeID, String startTime, String finishTime, String date, int paid) {
-    	Time t = new Time(userID, timeID, startTime, finishTime, date, paid);
+    public static Time addTime(int userID, int timeID, String startTime, String finishTime, String date, int paid, int version) {
+    	Time t = new Time(userID, timeID, startTime, finishTime, date, paid,version);
     	IdentityMap.addTime(t);
     	
     	return t;
@@ -55,7 +55,7 @@ public class Employee extends User {
 	
 	public void instertTime(int userID, String startTime, String finishTime, String date, int paid) throws SQLException {
 		int timeID = KeyTable.getKey("timeID");
-		Time t = new Time(userID,timeID,startTime,finishTime,date, paid);
+		Time t = new Time(userID,timeID,startTime,finishTime,date, paid,1);
 		IdentityMap.addTime(t);
 
 		//implementing UnitOfWork for adding new times

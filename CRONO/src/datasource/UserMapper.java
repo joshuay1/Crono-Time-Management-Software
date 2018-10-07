@@ -31,9 +31,11 @@ public class UserMapper {
 				String email = rs.getString(4);
 				String username = rs.getString(5);
 				String password = rs.getString(6);
+				
 				String role = rs.getString(7);
+				int version = rs.getInt(8);
 	
-				Roster.addUsers(id, firstName, lastName, email, username, password,role);
+				Roster.addUsers(id, firstName, lastName, email, username, password,role,version);
 			}
 
 	}
@@ -50,27 +52,29 @@ public class UserMapper {
 			String userName = rs.getString(5);
 			String password = rs.getString(6);
 			String role = rs.getString(7);
-			User user =new User( firstName, lastName, email, userName, password,id,role);
+			int version = rs.getInt(8);
+			User user =new User( firstName, lastName, email, userName, password,id,role,version);
 			return user;
 	}
 	
-	
 	public static User getUser(String userName) throws SQLException {
-		String sql = "Select * "
-				+ "From App.users "
-				+ "WHERE username = '"+userName+"'";
-		PreparedStatement sqlPrepared = DBConnection.prepare(sql);
-		ResultSet rs = sqlPrepared.executeQuery();
-		rs.next();
-		int id = rs.getInt(1);
-		String firstName = rs.getString(2);
-		String lastName = rs.getString(3);
-		String email = rs.getString(4);
-		String password = rs.getString(6);
-		String role = rs.getString(7);
-		User user =new User( firstName, lastName, email, userName, password,id,role);
-		return user;
-	}
+			String sql = "Select * "
+					+ "From App.users "
+					+ "WHERE username = '"+userName+"'";
+			PreparedStatement sqlPrepared = DBConnection.prepare(sql);
+			ResultSet rs = sqlPrepared.executeQuery();
+			rs.next();
+			int id = rs.getInt(1);
+			String firstName = rs.getString(2);
+			String lastName = rs.getString(3);
+			String email = rs.getString(4);
+			String password = rs.getString(6);
+			String role = rs.getString(7);
+			int version = rs.getInt(8);
+			User user =new User( firstName, lastName, email, userName, password,id,role,version);
+			return user;
+		}
+	
 	
 	
 	public static int getUserID(String userName) {
@@ -94,10 +98,25 @@ public class UserMapper {
 	
 	
 	
-	public static void update(int userID, String firstName, String lastName, String email, String username, String password) throws SQLException {
-		String sql = "UPDATE APP.users SET firstName = '"+ firstName+ "', lastName = '"+ lastName + "' , email = '" + email + "', username = '" + username + "' , password = '" + password + "' WHERE userID = "+ userID + "";
-		PreparedStatement sqlPrepared = DBConnection.prepare(sql);
-		int rs = sqlPrepared.executeUpdate();
+	public static void update(int userID, String firstName, String lastName, String email, String username, String password,int version) throws SQLException, InterruptedException {
+		String str = "SELECT version FROM APP.users WHERE userID = "+userID+" LOCK IN SHARE MODE";
+		PreparedStatement preparedSQL = DBConnection.prepare(str);
+		ResultSet rs = preparedSQL.executeQuery();
+		if(rs.next()) {
+			int rsVersion = rs.getInt(1);
+			//checking version
+			if(rsVersion != version) {
+				throw new InterruptedException("Row " + userID + "in table user was by modified");
+			}
+			else {
+				String sql = "UPDATE APP.users SET firstName = '"+ firstName+ "', lastName = '"+ lastName + "' , email = '" + email + "', username = '" + username + "' , password = '" + password + "' WHERE userID = "+ userID + "";
+				PreparedStatement sqlPrepared = DBConnection.prepare(sql);
+				sqlPrepared.executeUpdate();
+			}
+		}
+		else {
+			throw new InterruptedException("Row has been deleted");
+		}
 	
 	}
 	
@@ -127,10 +146,9 @@ public class UserMapper {
 	
 	}
 	
-	public static void create(int userID,String firstName, String lastName, String email, String username, String password, String role) throws SQLException {
-		System.out.println(" VALUES ("+userID + ",'"+firstName+"','"+lastName+"','"+email+"','"+username+"','"+password+"',"+role+")");
-		String sql = "INSERT INTO APP.users (userID, firstName, lastName, email, username, password, role)" +
-					" VALUES ("+userID + ",'"+firstName+"','"+lastName+"','"+email+"','"+username+"','"+password+"',"+role+")";
+	public static void create(int userID,String firstName, String lastName, String email, String username, String password, String role,int version) throws SQLException {
+		String sql = "INSERT INTO APP.users (userID, firstName, lastName, email, username, password, role, version)" +
+					" VALUES ("+userID + ",'"+firstName+"','"+lastName+"','"+email+"','"+username+"','"+password+"','"+role+"',"+version+")";
 		PreparedStatement sqlPrepared = DBConnection.prepare(sql);
 		int rs = sqlPrepared.executeUpdate();
 		

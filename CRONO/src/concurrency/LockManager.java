@@ -4,57 +4,68 @@ package concurrency;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class LockManager {
+	
+	//keeping track of process have lock which 
+	
+	private final Map<Object, PessimisticLockReadWrite> lockMap;
 
-    private final Map<Object, ReadWriteLock> lockMap;
-
-    private static LockManager manager;
+    private static LockManager mapper;
 
     private LockManager() {
         lockMap = new HashMap<>();
     }
 
     public static LockManager getInstance() {
-        if (LockManager.manager == null) {
-            LockManager.manager = new LockManager();
+        if (LockManager.mapper == null) {
+            LockManager.mapper = new LockManager();
         }
-        return LockManager.manager;
+        return LockManager.mapper;
     }
 
     public synchronized void acquireReadLock(Object toLock)
             throws InterruptedException {
-        getReadWriteLock(toLock).lockRead();
+        getPessimisticLock(toLock).lockRead();
     }
 
     public synchronized void acquireWriteLock(Object toLock)
             throws InterruptedException {
-        getReadWriteLock(toLock).lockWrite();
+        getPessimisticLock(toLock).lockWrite();
     }
 
     public synchronized void releaseReadLock(Object toLock) {
-        getReadWriteLock(toLock).unlockRead();
+        getPessimisticLock(toLock).unlockRead();
     }
 
     public synchronized void releaseWriteLock(Object toLock) {
-        getReadWriteLock(toLock).unlockWrite();
+        getPessimisticLock(toLock).unlockWrite();
     }
 
     public synchronized void releaseAllLocksOn(Object toLock) {
-        getReadWriteLock(toLock).unlock();
+        getPessimisticLock(toLock).unlock();
     }
 
     public synchronized void releaseAllLocks() {
-        for (Map.Entry<Object, ReadWriteLock> entry : lockMap.entrySet()) {
+        for (Map.Entry<Object, PessimisticLockReadWrite> entry : lockMap.entrySet()) {
             entry.getValue().unlock();
         }
     }
 
-    private ReadWriteLock getReadWriteLock(Object toLock) {
-        ReadWriteLock lock = lockMap.get(toLock);
+    private PessimisticLockReadWrite getPessimisticLock(Object toLock) {
+        PessimisticLockReadWrite lock = lockMap.get(toLock);
+        System.out.println("Hello "+lock);
         if (lock == null) {
-            lockMap.putIfAbsent(toLock, new ReadWriteLock());
+        	System.out.println("goodbye");
+        	PessimisticLockReadWrite a = new PessimisticLockReadWrite();
+        	System.out.println("1");
+            lockMap.put(toLock, new PessimisticLockReadWrite());
+            System.out.println("2");
             lock = lockMap.get(toLock);
+            System.out.println("Hello "+lock);
+
         }
         return lock;
     }
+
 }
