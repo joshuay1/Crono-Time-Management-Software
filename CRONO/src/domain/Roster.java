@@ -41,15 +41,18 @@ public class Roster {
 	
 	public static void addUsers(int userID, String firstName,String lastName,String email,String username,String password, String role,int version) {
 		
-		if(role == "Admin") {
+		if(role.equals("Admin")) {
 			Admin e = new Admin(userID, firstName, lastName, email, username,password, role,version);
 			IdentityMap.addAdmin(e);
 			admins.add(e);
 		}
-		else if(role =="Employee" ) {
+		else if(role.equals("Employee") ) {
 			Employee e = new Employee(userID, firstName, lastName, email, username,password, role,version);
 			IdentityMap.addEmployee(e);
 			employees.add(e);
+		}
+		else {
+			System.out.println("User is neither");
 		}
 			
 		
@@ -58,7 +61,7 @@ public class Roster {
 	
 	
 	
-	public static void updateProfile(int userID, String firstName, String lastName, String email, String username, String password, int role) throws SQLException {
+	public static void updateProfile(int userID, String firstName, String lastName, String email, String username, String password) throws SQLException {
 		User e = Roster.getUser(userID);
 		e.updateUserName(username);
 		e.updateEmail(email);

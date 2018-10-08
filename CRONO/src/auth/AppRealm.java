@@ -58,9 +58,10 @@ public class AppRealm extends JdbcRealm {
         // add roles of the user according to its type
         // Set<String> role = new HashSet<>();
         // role.add(user.getRole());
-        String perms = user.getUserPermission(user.getRole());
+		System.out.println(user.getRole());
+        System.out.println(user.getUserPermission(user.getRole()));
         SimpleAuthorizationInfo authinfo = new SimpleAuthorizationInfo();
-        authinfo.addStringPermission(perms);
+        authinfo.addStringPermissions(user.getUserPermission(user.getRole()));
        
        
 

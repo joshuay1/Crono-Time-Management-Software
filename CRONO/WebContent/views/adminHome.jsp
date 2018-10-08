@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="auth.AppSession" %>
+<%@ page import="domain.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,12 +24,15 @@
 	      <li class="nav-item">
 	        <a class="nav-link" href="/CRONO/ViewEmployees">Check Employees</a>
 	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="/CRONO/logout">Log Out</a>
+	      </li>
 	    </ul>
 	  </div>
 	</nav>
 	
 	<div class='container'>
-		<h1>Welcome  <%=AppSession.getUser().getFirstName()%></h1>
+		<h1>Welcome  <%=User.getUser(AppSession.getUser()).getFirstName()%></h1>
 		<h2>To your HomePage</h2>
 	</div>
 

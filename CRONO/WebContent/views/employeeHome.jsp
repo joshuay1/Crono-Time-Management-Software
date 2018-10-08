@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ page import="auth.AppSession" %>
+  <%@ page import="domain.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +35,13 @@
 	</nav>
 	
 	<div class='container'>
-		<h1>Welcome  <%=AppSession.getUser().getFirstName()%></h1>
+		<h1>Welcome  <%=User.getUser(AppSession.getUser()).getFirstName()%></h1>
 		<h2>To your HomePage</h2>
 	</div>
 
-
+<form action="/CRONO/logout" method="post">
+    <input type="submit" value="Logout">
+</form>
 
 </body>
 </html>

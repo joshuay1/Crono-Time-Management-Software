@@ -16,7 +16,7 @@ public class Pay {
 	
 	
 	public String getString() {
-		return "("+finishTime + " - " + startTime + ") * " + payRate;
+		return ""+ payRate;
 	}
 
 }

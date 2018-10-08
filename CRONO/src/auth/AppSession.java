@@ -16,13 +16,17 @@ public class AppSession {
     public static boolean isAuthenticated() {
         return SecurityUtils.getSubject().isAuthenticated();
     }
-
-    public static void init(User user) {
-        SecurityUtils.getSubject().getSession().setAttribute(USER_ATTRIBUTE_NAME, user);
+    
+    public static boolean isPermitted(String perms) {
+        return SecurityUtils.getSubject().isPermitted(perms);
     }
 
-    public static User getUser() {
-        return (User) SecurityUtils.getSubject().getSession().getAttribute(USER_ATTRIBUTE_NAME);
+    public static void init(User user) {
+        SecurityUtils.getSubject().getSession().setAttribute(USER_ATTRIBUTE_NAME, user.getUserName());
+    }
+
+    public static String getUser() {
+        return (String) SecurityUtils.getSubject().getSession().getAttribute(USER_ATTRIBUTE_NAME);
     }
 
 }

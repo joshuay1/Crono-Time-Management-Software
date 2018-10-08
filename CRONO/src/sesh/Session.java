@@ -19,7 +19,7 @@ public class Session {
 
     public static Session refreshSession(HttpSession httpSession, String username) throws SQLException {
         if (httpSession.getAttribute(username) == null) {
-            Employee user = User.getUser(username);
+            User user = User.getUser(username);
             httpSession.setAttribute(username, user);
             httpSession.setMaxInactiveInterval(24 * 60 * 60);
         }

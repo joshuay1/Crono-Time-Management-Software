@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import auth.AppSession;
 import domain.Employee;
 import domain.Roster;
 
@@ -22,41 +23,43 @@ import domain.Roster;
 @WebServlet("/editProfile")
 public class EditProfileContoller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-
-	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 //	    	response.setContentType("text.html; charset=UFT-8");
-	    	int ID = Integer.parseInt(request.getParameter("ID"));
-	        String email = request.getParameter("email");
-	        String username = request.getParameter("username");
-	        String password = request.getParameter("password");
-	        String firstName = request.getParameter("firstName");
-	        String lastName = request.getParameter("lastName");
-	        int role = Integer.parseInt(request.getParameter("Role"));
-	        
-	        try {
-				Roster.updateProfile(ID, firstName, lastName, email, username, password, role);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if (AppSession.isAuthenticated()) {
+			if (AppSession.isPermitted("employee:edit_profile")) {
+				int ID = Integer.parseInt(request.getParameter("ID"));
+				String email = request.getParameter("email");
+				String username = request.getParameter("username");
+				String password = request.getParameter("password");
+				String firstName = request.getParameter("firstName");
+				String lastName = request.getParameter("lastName");
+
+				try {
+					Roster.updateProfile(ID, firstName, lastName, email, username, password);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				response.sendRedirect("home?ID");
+			} else {
+				response.sendRedirect("/CRONO/home");
 			}
-			
-	        
-	        response.sendRedirect("home?ID");
-	    }
-	 
-	 
-	 @Override
-	    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    	ServletContext servletContext = getServletContext();
-	    	String view = "/views/editProfile.jsp";
-	        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
-	        requestDispatcher.forward(request, response);
-			
-			
-	    }
-	 
-	 
+		} else {
+			response.sendRedirect("/CRONO/home");
+		}
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ServletContext servletContext = getServletContext();
+		String view = "/views/editProfile.jsp";
+		RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
+		requestDispatcher.forward(request, response);
+
+	}
 
 }

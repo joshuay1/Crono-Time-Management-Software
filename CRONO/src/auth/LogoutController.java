@@ -23,4 +23,16 @@ public class LogoutController extends HttpServlet {
 
         response.sendRedirect("/CRONO/home");
     }
+    
+    @Override
+    protected void doGet(HttpServletRequest request,
+                          HttpServletResponse response) throws IOException {
+
+        Subject currentUser = SecurityUtils.getSubject();
+        if (currentUser.isAuthenticated()) {
+            currentUser.logout();
+        }
+
+        response.sendRedirect("/CRONO/home");
+    }
 }

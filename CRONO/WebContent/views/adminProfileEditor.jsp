@@ -6,12 +6,11 @@
     <%@ page import= "domain.Roster" %>
     <%@ page import= "domain.Time" %>
     <%@ page import = "java.util.List" %>
-    <% Session wrappedSession = Session.refreshSession(session,"admin");  %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin: <%=wrappedSession.getUser("admin").getFirstName() %></title>
+<title>Admin</title>
 <script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -122,6 +121,10 @@ $("#btn2").click(function(){
     $("#profileEdit").toggle();
 });
 </script>
+
+<form action="/CRONO/logout" method="post">
+    <input type="submit" value="Logout">
+</form>
 
 </body>
 </html>

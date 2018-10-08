@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import domain.Employee;
 import domain.Roster;
@@ -34,6 +36,7 @@ public class UserMapper {
 				
 				String role = rs.getString(7);
 				int version = rs.getInt(8);
+
 	
 				Roster.addUsers(id, firstName, lastName, email, username, password,role,version);
 			}
@@ -99,7 +102,7 @@ public class UserMapper {
 	
 	
 	public static void update(int userID, String firstName, String lastName, String email, String username, String password,int version) throws SQLException, InterruptedException {
-		String str = "SELECT version FROM APP.users WHERE userID = "+userID+" LOCK IN SHARE MODE";
+		String str = "SELECT version FROM APP.users WHERE userID = "+userID;
 		PreparedStatement preparedSQL = DBConnection.prepare(str);
 		ResultSet rs = preparedSQL.executeQuery();
 		if(rs.next()) {
@@ -109,7 +112,8 @@ public class UserMapper {
 				throw new InterruptedException("Row " + userID + "in table user was by modified");
 			}
 			else {
-				String sql = "UPDATE APP.users SET firstName = '"+ firstName+ "', lastName = '"+ lastName + "' , email = '" + email + "', username = '" + username + "' , password = '" + password + "' WHERE userID = "+ userID + "";
+				version = version +1;
+				String sql = "UPDATE APP.users SET firstName = '"+ firstName+ "', lastName = '"+ lastName + "' , email = '" + email + "', username = '" + username + "' , password = '" + password + "', version = "+version+"  WHERE userID = "+ userID + "";
 				PreparedStatement sqlPrepared = DBConnection.prepare(sql);
 				sqlPrepared.executeUpdate();
 			}
@@ -156,22 +160,24 @@ public class UserMapper {
 	
 	}
 	
-	public static String getUserPermission(String role) {
+	public static Set<String> getUserPermission(String role) {
 		String sql = "Select permission "
 				+ "From App.roles_permission "
 				+ "WHERE role = '"+role+"'";
 		PreparedStatement sqlPrepared;
+		Set<String> perms = new HashSet<>();
 		try {
 			sqlPrepared = DBConnection.prepare(sql);
 			ResultSet rs = sqlPrepared.executeQuery();
-			rs.next();
-			return rs.getString(1);
+			while(rs.next()) {
+				perms.add(rs.getString(1));
+			}
+			
 		} catch (SQLException e) {
 			System.out.println("Errror with SQL");
 			e.printStackTrace();
 		}
-		
-		return "Error";
+		return perms;
 	}
 	
 	

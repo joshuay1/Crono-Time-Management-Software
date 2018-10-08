@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="sesh.Session" %>
     <%@ page import= "domain.Employee" %>
      <%@ page import= "domain.User" %>
     <%@ page import= "domain.Roster" %>
     <%@ page import= "domain.Time" %>
     <%@ page import = "java.util.List" %>
+     <%@ page import="auth.AppSession" %>
     
 <!DOCTYPE html>
 <html>
@@ -17,9 +17,8 @@
 </head>
 <body>
 	<% 
-		Session wrappedSession = Session.refreshSession(session,"user1"); 
 		Employee e = null;
-		e = Roster.getEmployee(wrappedSession.getUser("user1").getID());
+		e = Roster.getEmployee(User.getUser(AppSession.getUser()).getID());
     	List<Time> times = null;
 		times = e.getTimeSheet();
 		%>
@@ -47,12 +46,12 @@
 	</nav>
 	
 	<div class='container'>
-		<h1>Welcome  <%=wrappedSession.getUser("user1").getFirstName()%></h1>
+		<h1>Welcome  <%=User.getUser(AppSession.getUser()).getFirstName()%></h1>
 		<h2>To your TimeSheet</h2>
 		<%-- <p>You have <% e.getNumberTimes();%><p> --%>
 		
 	<table class='table table-bordered table-striped'>
-	<tr><th>StartTime</th><th>FinishTime</th><th>Date</th><th>Payment for work (will convert for feature 2)</th><th>Paid</th></tr>
+	<tr><th>StartTime</th><th>FinishTime</th><th>Date</th><th>Pay/hr</th><th>Paid</th></tr>
 	<% for(int i= 0 ; i<times.size(); i++) { %>
 		<tr><td> <%=times.get(i).getStartTime()  %></td><td><%=times.get(i).getFinishTime()  %></td><td><%=times.get(i).getDate()  %></td><td><%=times.get(i).getPay()  %></td>
 		<td><%if(times.get(i).getPaid() == 0){%>NO<%}else if(times.get(i).getPaid() == 1){%>YES!<% } %></td></tr>
@@ -60,7 +59,9 @@
 
     	</table>
    	</div>
-    		
+    <form action="/CRONO/logout" method="post">
+    	<input type="submit" value="Logout">
+	</form>
 
 </body>
 </html>

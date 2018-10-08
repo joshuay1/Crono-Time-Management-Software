@@ -1,13 +1,13 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
- <%@ page import="sesh.Session" %>
- <% Session wrappedSession = Session.refreshSession(session,"user1"); %>
+ <%@ page import="auth.AppSession" %>
+ <%@ page import="domain.User" %>
 
 
 <html>
 <head>
   
-    <title> Create Time: <%=wrappedSession.getUser("user1").getFirstName()%></title>
+    <title> Create Time: <%=User.getUser(AppSession.getUser()).getFirstName()%></title>
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'/>
 </head>
 <body>
@@ -41,7 +41,7 @@
       <div class="col-md-9">
         
         <form method = "POST" action ="/CRONO/createTime" class="form-horizontal" role="form">
-        <input type = "hidden" name = "ID" value = "<%=wrappedSession.getUser("user1").getID()%>"></input>
+        <input type = "hidden" name = "ID" value = "<%=User.getUser(AppSession.getUser()).getID()%>"></input>
           <div class="form-group">
             <label class="col-lg-3 control-label">Start Time:</label>
             <div class="col-lg-8">
@@ -72,5 +72,9 @@
       </div>
   </div>
 </div>
+
+<form action="/CRONO/logout" method="post">
+    <input type="submit" value="Logout">
+</form>
 
 <hr>

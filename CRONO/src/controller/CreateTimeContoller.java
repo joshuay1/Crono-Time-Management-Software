@@ -14,42 +14,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import auth.AppSession;
 import domain.Employee;
 import domain.Roster;
 
 @WebServlet("/createTime")
 public class CreateTimeContoller extends HttpServlet {
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 //    	response.setContentType("text.html; charset=UFT-8");
-    	
-    	int ID = Integer.parseInt(request.getParameter("ID"));
-        String startTime = request.getParameter("startTime1");
-        String finishTime = request.getParameter("finishTime1");
-        String date = request.getParameter("date1");
+		if (AppSession.isAuthenticated()) {
+			if (AppSession.isPermitted("employee:add_time")) {
+				int ID = Integer.parseInt(request.getParameter("ID"));
+				String startTime = request.getParameter("startTime1");
+				String finishTime = request.getParameter("finishTime1");
+				String date = request.getParameter("date1");
 
-		
-		
-	     
-        try {
-			Employee e = Roster.getEmployee(ID);
-			e.instertTime(ID, startTime, finishTime, date,0);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+				try {
+					Employee e = Roster.getEmployee(ID);
+					e.instertTime(ID, startTime, finishTime, date, 0);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+
+				response.sendRedirect("/CRONO/home");
+
+			} else {
+				response.sendRedirect("/CRONO/home");
+			}
+		} else {
+			response.sendRedirect("/CRONO/home");
 		}
-        
-        response.sendRedirect("/CRONO/home");
-    }
-    
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	ServletContext servletContext = getServletContext();
-    	String view = "/views/createTime.jsp";
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
-        requestDispatcher.forward(request, response);
-		
-		
-    }
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ServletContext servletContext = getServletContext();
+		String view = "/views/createTime.jsp";
+		RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
+		requestDispatcher.forward(request, response);
+
+	}
 
 }

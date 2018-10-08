@@ -2,6 +2,7 @@ package domain;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import datasource.IdentityMap;
 import datasource.KeyTable;
@@ -88,7 +89,7 @@ public class User {
     }
     
     
-    public String getUserPermission(String role) {
+    public Set<String> getUserPermission(String role) {
         return UserMapper.getUserPermission(role);
     }
     

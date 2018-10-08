@@ -20,6 +20,7 @@
 //    Session wrappedSession = Session.refreshSession(session,"admin");
 //    User u = wrappedSession.getUser("admin");
 // <%=AppSession.getUser().getFirstName()
+// <%=User.getUser(AppSession.getUser()).getFirstName() >
 //    if (session.isNew()) {
 %>
 
@@ -35,7 +36,10 @@ Login here
 </form>
 
 <% } else {%>
-Welcome back <%=AppSession.getUser().getFirstName()%>
+Welcome back <%=User.getUser(AppSession.getUser()).getFirstName() %>
+
+<a href="/CRONO/home">Home <span class="sr-only">(current)</span></a>
+
 
 <form action="/CRONO/logout" method="post">
     <input type="submit" value="Logout">
