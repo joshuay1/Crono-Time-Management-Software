@@ -43,6 +43,7 @@ This layer of data mapper moves data between objects and database and keep domai
 Data Source Layer:
 The data source layer communicates with the SQL database.
 
+--------------------------------------------
 
 Detailed Architecture:
 
