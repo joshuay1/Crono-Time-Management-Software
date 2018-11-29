@@ -19,13 +19,13 @@
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	    <ul class="navbar-nav">
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/CRONO/home">Home <span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/CRONO/ViewEmployees">Check Employees</a>
+	        <a class="nav-link" href="/ViewEmployees">Check Employees</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/CRONO/logout">Log Out</a>
+	        <a class="nav-link" href="/logout">Log Out</a>
 	      </li>
 	    </ul>
 	  </div>

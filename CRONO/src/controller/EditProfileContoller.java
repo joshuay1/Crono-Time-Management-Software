@@ -45,10 +45,10 @@ public class EditProfileContoller extends HttpServlet {
 
 				response.sendRedirect("home?ID");
 			} else {
-				response.sendRedirect("/CRONO/home");
+				response.sendRedirect("/home");
 			}
 		} else {
-			response.sendRedirect("/CRONO/home");
+			response.sendRedirect("/home");
 		}
 	}
 

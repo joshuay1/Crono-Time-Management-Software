@@ -39,13 +39,13 @@ public class CreateTimeContoller extends HttpServlet {
 					e1.printStackTrace();
 				}
 
-				response.sendRedirect("/CRONO/home");
+				response.sendRedirect("/home");
 
 			} else {
-				response.sendRedirect("/CRONO/home");
+				response.sendRedirect("/home");
 			}
 		} else {
-			response.sendRedirect("/CRONO/home");
+			response.sendRedirect("/home");
 		}
 	}
 

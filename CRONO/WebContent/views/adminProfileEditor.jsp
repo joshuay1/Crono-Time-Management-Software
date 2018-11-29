@@ -28,7 +28,7 @@
 		%>
 		<h1>Viewing <%=e.getFirstName() %>'s Profile
 		<div class='container'>
-			<form method="post" action ="/CRONO/adminEdit">
+			<form method="post" action ="/adminEdit">
 				<input type="hidden"  name = "type" value = 1>
 				<input type="hidden"  name = "ID" value = "<%=employeeID%>">
    				<input type="submit" value="Delete Users">
@@ -44,7 +44,7 @@
 			<% for(int i= 0 ; i<times.size(); i++) { %>
 				<tr><td> <%=times.get(i).getStartTime()  %></td><td><%=times.get(i).getFinishTime()  %></td><td><%=times.get(i).getDate()  %></td><td><%=times.get(i).getPay()  %></td><td><%if(times.get(i).getPaid() == 0){%>
 																																											
-																																															<form method="post" action ="/CRONO/adminEdit">
+																																															<form method="post" action ="/adminEdit">
 																																																<input type="hidden"  name = "type" value = 2>
 																																																<input type="hidden"  name = "ID" value = "<%=times.get(i).getTimeID() %>">
 																																																<input type="hidden"  name = "userID" value = "<%=employeeID %>">
@@ -65,7 +65,7 @@
 	<div class="row">
       <div class="col-md-9">
         
-        <form method = "POST" action ="/CRONO/adminEdit" class="form-horizontal" role="form">
+        <form method = "POST" action ="/adminEdit" class="form-horizontal" role="form">
         <input type = "hidden" name = "ID" value = "<%=e.getID()%>"></input>
          <input type = "hidden" name = "Role" value = "<%=e.getRole()%>"></input>
          <input type = "hidden" name = "Password1" value = "<%=e.getPassword()%>"></input>
@@ -122,7 +122,7 @@ $("#btn2").click(function(){
 });
 </script>
 
-<form action="/CRONO/logout" method="post">
+<form action="/logout" method="post">
     <input type="submit" value="Logout">
 </form>
 

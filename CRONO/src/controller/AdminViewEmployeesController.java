@@ -46,10 +46,10 @@ public class AdminViewEmployeesController extends HttpServlet {
 				requestDispatcher.forward(request, response);
 
 			} else {
-				response.sendRedirect("/CRONO/home");
+				response.sendRedirect("/home");
 			}
 		} else {
-			response.sendRedirect("/CRONO/home");
+			response.sendRedirect("/home");
 		}
 	}
 
@@ -92,10 +92,10 @@ public class AdminViewEmployeesController extends HttpServlet {
 				requestDispatcher.forward(request, response);
 
 			} else {
-				response.sendRedirect("/CRONO/home");
+				response.sendRedirect("/home");
 			}
 		} else {
-			response.sendRedirect("/CRONO/home");
+			response.sendRedirect("/home");
 		}
 
 	}

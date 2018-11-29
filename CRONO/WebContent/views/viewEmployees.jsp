@@ -35,7 +35,7 @@
 		<h1>
 			Welcome
 			<%=User.getUser(AppSession.getUser()).getFirstName()%></h1>
-		<form action="/CRONO/logout" method="post">
+		<form action="/logout" method="post">
 			<input type="submit" value="Logout">
 		</form>
 		<h2>These are all the users</h2>
@@ -54,7 +54,7 @@
 			%>
 			<tr>
 				<td>
-					<form method="get" action="/CRONO/adminEdit">
+					<form method="get" action="/adminEdit">
 						<input type="hidden" name="ID" value="<%=users.get(i).getID()%>"></input>
 						<input type="submit" value="View">
 					</form>
@@ -82,7 +82,7 @@
 		<div class="row">
 			<div class="col-md-9">
 
-				<form method="POST" action="/CRONO/ViewEmployees"
+				<form method="POST" action="/ViewEmployees"
 					class="form-horizontal" role="form">
 					<div class="form-group">
 						<label class="col-lg-3 control-label">First name:</label>

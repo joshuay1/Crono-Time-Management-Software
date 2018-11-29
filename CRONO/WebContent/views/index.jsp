@@ -29,7 +29,7 @@
 Login here
 
 
-<form action="/CRONO/home" method="post">
+<form action="/home" method="post">
     <input type="text" name="username">
     <input type="password" name="password">
     <input type="submit" value="Login">
@@ -38,10 +38,10 @@ Login here
 <% } else {%>
 Welcome back <%=User.getUser(AppSession.getUser()).getFirstName() %>
 
-<a href="/CRONO/home">Home <span class="sr-only">(current)</span></a>
+<a href="/home">Home <span class="sr-only">(current)</span></a>
 
 
-<form action="/CRONO/logout" method="post">
+<form action="/logout" method="post">
     <input type="submit" value="Logout">
 </form>
 

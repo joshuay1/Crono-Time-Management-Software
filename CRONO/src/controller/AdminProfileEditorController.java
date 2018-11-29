@@ -80,13 +80,13 @@ public class AdminProfileEditorController extends HttpServlet {
 
 					Roster.deleteUser(id);
 
-					response.sendRedirect("/CRONO/ViewEmployees");
+					response.sendRedirect("/ViewEmployees");
 				} else if (type == 2) { // paying
 
 					int timeID = Integer.parseInt(request.getParameter("ID"));
 					int userID = Integer.parseInt(request.getParameter("userID"));
 					Employee.payTime(timeID);
-					response.sendRedirect("/CRONO/adminEdit?ID=" + userID);
+					response.sendRedirect("/adminEdit?ID=" + userID);
 
 				} else if (type == 3) { // updating user
 					int ID = Integer.parseInt(request.getParameter("ID"));
@@ -103,13 +103,13 @@ public class AdminProfileEditorController extends HttpServlet {
 						e.printStackTrace();
 					}
 //			LockManager.getInstance().releaseWriteLock(session.getUser("admin"));
-					response.sendRedirect("/CRONO/ViewEmployees");
+					response.sendRedirect("/ViewEmployees");
 				}
 			} else {
-				response.sendRedirect("/CRONO/home");
+				response.sendRedirect("/home");
 			}
 		} else {
-			response.sendRedirect("/CRONO/home");
+			response.sendRedirect("/home");
 		}
 
 	}

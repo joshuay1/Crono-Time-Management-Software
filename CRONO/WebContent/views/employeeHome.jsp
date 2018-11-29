@@ -19,16 +19,16 @@
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	    <ul class="navbar-nav">
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/CRONO/home">Home <span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/CRONO/createTime">Clock in</a>
+	        <a class="nav-link" href="/createTime">Clock in</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/CRONO/times">View Time</a>
+	        <a class="nav-link" href="/times">View Time</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link disabled"  href="/CRONO/editProfile">Edit Profile</a>
+	        <a class="nav-link disabled"  href="/editProfile">Edit Profile</a>
 	      </li>
 	    </ul>
 	  </div>
@@ -39,7 +39,7 @@
 		<h2>To your HomePage</h2>
 	</div>
 
-<form action="/CRONO/logout" method="post">
+<form action="/logout" method="post">
     <input type="submit" value="Logout">
 </form>
 

@@ -21,16 +21,16 @@
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	    <ul class="navbar-nav">
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/CRONO/home">Home <span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/CRONO/createTime">Clock in</a>
+	        <a class="nav-link" href="/createTime">Clock in</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/CRONO/times">View Time</a>
+	        <a class="nav-link" href="/times">View Time</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link disabled"  href="/CRONO/editProfile">Edit Profile</a>
+	        <a class="nav-link disabled"  href="/editProfile">Edit Profile</a>
 	      </li>
 	    </ul>
 	  </div>
@@ -44,7 +44,7 @@
 	<div class="row">
       <div class="col-md-9">
         
-        <form method = "POST" action ="/CRONO/editProfile" class="form-horizontal" role="form">
+        <form method = "POST" action ="/editProfile" class="form-horizontal" role="form">
         <input type = "hidden" name = "ID" value = "<%=u.getID()%>"></input>
         <input type = "hidden" name = "Role" value = "<%=u.getRole()%>"></input>
         <input type = "hidden" name = "username" value = "<%=u.getUserName()%>"></input>
@@ -91,7 +91,7 @@
 </div>
 <hr>
 
-<form action="/CRONO/logout" method="post">
+<form action="/logout" method="post">
     <input type="submit" value="Logout">
 </form>
 

@@ -19,16 +19,16 @@
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	    <ul class="navbar-nav">
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/CRONO/views/home.jsp">Home <span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/views/home.jsp">Home <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/CRONO/createTime">Clock in</a>
+	        <a class="nav-link" href="/createTime">Clock in</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/CRONO/times">View Time</a>
+	        <a class="nav-link" href="/times">View Time</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link disabled"  href="/CRONO/editProfile">Edit Profile</a>
+	        <a class="nav-link disabled"  href="/editProfile">Edit Profile</a>
 	      </li>
 	    </ul>
 	  </div>
@@ -40,7 +40,7 @@
 	<div class="row">
       <div class="col-md-9">
         
-        <form method = "POST" action ="/CRONO/createTime" class="form-horizontal" role="form">
+        <form method = "POST" action ="/createTime" class="form-horizontal" role="form">
         <input type = "hidden" name = "ID" value = "<%=User.getUser(AppSession.getUser()).getID()%>"></input>
           <div class="form-group">
             <label class="col-lg-3 control-label">Start Time:</label>
@@ -73,7 +73,7 @@
   </div>
 </div>
 
-<form action="/CRONO/logout" method="post">
+<form action="/logout" method="post">
     <input type="submit" value="Logout">
 </form>
 
